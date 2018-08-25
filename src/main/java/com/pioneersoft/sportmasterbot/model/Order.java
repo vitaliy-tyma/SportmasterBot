@@ -3,7 +3,11 @@ package com.pioneersoft.sportmasterbot.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table( name = "orders" )
 public class Order {

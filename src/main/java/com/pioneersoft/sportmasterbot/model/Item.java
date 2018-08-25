@@ -23,9 +23,21 @@ public class Item {
     @JsonProperty
     private String itemId;
 
+    @Column( name = "item_brand" )
+    @JsonProperty
+    private String itemBrand;
+
     @Column( name = "item_name" )
     @JsonProperty
     private String itemName;
+
+    @Column( name = "color" )
+    @JsonProperty
+    private String color;
+
+    @Column( name = "size" )
+    @JsonProperty
+    private String size;
 
     @Column( name = "price" )
     @JsonProperty
