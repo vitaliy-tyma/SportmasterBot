@@ -11,28 +11,20 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Entity
-@Table( name = "users" )
 public class User {
 
-    @Id
-    @Column(name = "login")
     @JsonProperty
     private String login;
 
-    @Column(name = "password")
     @JsonProperty
     private String password;
 
-    @Column(name = "first_name")
     @JsonProperty
     private String firstName;
 
-    @Column(name = "second_name")
     @JsonProperty
     private String secondName;
 
-    @Column(name = "email")
     @JsonProperty
     private String email;
 }
