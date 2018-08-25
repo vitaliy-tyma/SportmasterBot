@@ -21,7 +21,7 @@ public class Item {
     @Id
     @Column( name = "item_id" )
     @JsonProperty
-    private Integer itemId;
+    private String itemId;
 
     @Column( name = "item_name" )
     @JsonProperty

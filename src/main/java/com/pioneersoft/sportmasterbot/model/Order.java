@@ -23,10 +23,13 @@ public class Order {
     @JsonProperty
     private Integer amount;
 
-    @Column( name = "time" )
+    @Column( name = "order_time" )
     @JsonProperty
-    private Long time;
+    private Long orderTime;
 
     @ManyToOne(targetEntity = Item.class)
     private Item item;
+
+    @ManyToOne(targetEntity = User.class)
+    private User user;
 }
