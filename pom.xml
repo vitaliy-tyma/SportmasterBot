@@ -17,11 +17,7 @@
         <jackson.version>2.9.4</jackson.version>
         <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
         <spring-context.version>5.0.2.RELEASE</spring-context.version>
-        <spring-data-jpa.version>1.11.7.RELEASE</spring-data-jpa.version>
-        <spring-data-commons.version>1.13.7.RELEASE</spring-data-commons.version>
-        <spring-data-commons-core.version>1.4.1.RELEASE</spring-data-commons-core.version>
-        <hikari-cp.version>2.6.1</hikari-cp.version>
-        <hibernate-core.version>5.2.13.Final</hibernate-core.version>
+        <jsoup.version>1.11.2</jsoup.version>
     </properties>
 
     <dependencies>
@@ -96,49 +92,11 @@
             <version>${spring-context.version}</version>
         </dependency>
 
-        <!-- SPRING DATA -->
+        <!-- JSOUP -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>${spring-data-commons.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>${spring-data-jpa.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons-core</artifactId>
-            <version>${spring-data-commons-core.version}</version>
-        </dependency>
-
-        <!-- HIBERNATE CORE -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-core.version}</version>
-        </dependency>
-
-        <!-- JDBC DRIVER -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP-java9ea</artifactId>
-            <version>${hikari-cp.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.196</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
         <!-- JUNIT -->
@@ -148,6 +106,8 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+
     </dependencies>
 
     <build>
