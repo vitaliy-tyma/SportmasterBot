@@ -31,8 +31,5 @@ public class Item {
     private Integer initPrice;
 
     @JsonProperty
-    private Boolean avialability;
-
-    @JsonProperty
     private String itemLink;
 }

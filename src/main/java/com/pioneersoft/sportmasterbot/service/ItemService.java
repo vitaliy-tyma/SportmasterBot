@@ -1,10 +1,9 @@
 package com.pioneersoft.sportmasterbot.service;
 
-import org.jsoup.nodes.Document;
+import com.pioneersoft.sportmasterbot.model.Item;
 
 public interface ItemService {
 
-    Document findItemByItemId(String itemId);
-
+    Item findItemByItemId(String itemId);
 
 }
