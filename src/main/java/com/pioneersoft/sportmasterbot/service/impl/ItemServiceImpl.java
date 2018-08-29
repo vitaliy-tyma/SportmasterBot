@@ -2,9 +2,11 @@ package com.pioneersoft.sportmasterbot.service.impl;
 
 import com.pioneersoft.sportmasterbot.model.Item;
 import com.pioneersoft.sportmasterbot.service.ItemService;
+import com.pioneersoft.sportmasterbot.util.LogManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,19 +22,21 @@ public class ItemServiceImpl implements ItemService {
 		try {
 			document = Jsoup.connect("https://www.sportmaster.ru/catalog/product/search.do?text=" + itemId).get();
 
-			item = new Item();
-			item.setItemId(itemId);
-			item.setItemLink(document.baseUri());
+			if ( !document.getElementsByClass("sm-goods_main").isEmpty())
+			{
+				item = new Item();
+				item.setItemId(itemId);
+				item.setItemLink(document.baseUri());
 
-			item.setItemBrand(extractBrand(document));
-			item.setItemName(extractName(document));
-			item.setColor(extractColor(document));
-			item.setSize(extractSize(document));
-			item.setInitPrice(extractInitPrice(document));
-			item.setPrice(extractPrice(document));
-
+				item.setItemBrand(extractBrand(document));
+				item.setItemName(extractName(document));
+				item.setColor(extractColor(document));
+				item.setSize(extractSize(document, itemId));
+				item.setInitPrice(extractInitPrice(document));
+				item.setPrice(extractPrice(document));
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 
 		return item;
@@ -42,9 +46,12 @@ public class ItemServiceImpl implements ItemService {
 		Integer price = null;
 
 		try {
-
+			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_actual-price").first();
+			if (element != null) {
+				return Integer.parseInt(element.text().replaceAll("\\D", ""));
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return price;
 	}
@@ -53,20 +60,28 @@ public class ItemServiceImpl implements ItemService {
 		Integer initPrice = null;
 
 		try {
-
+			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_old-price").first();
+			if (element != null) {
+				return Integer.parseInt(element.text().replaceAll("\\D", ""));
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return initPrice;
 	}
 
-	private String extractSize(Document document) {
+	private String extractSize(Document document, String itemId) {
 		String size = "";
 
 		try {
-
+			Elements aElements = document.getElementsByAttributeValueContaining("class", "js-size-item");
+			for (Element divElement : aElements){
+				if ( divElement.hasAttr("data-id") && divElement.attr("data-id").equals(itemId)){
+					return divElement.text();
+				}
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return size;
 	}
@@ -75,12 +90,17 @@ public class ItemServiceImpl implements ItemService {
 		String color = "";
 
 		try {
-			Element element = document.getElementsByAttributeValue("itemprop", "brand").first();
-			if (element.hasAttr("content")) {
-				return element.attr("content");
+			Element element = document.getElementsByClass("sm-goods_main_details_color clearfix").first();
+			if (element != null) {
+				Elements aElements = element.getElementsByTag("a");
+				for (Element aElement : aElements){
+					if ( !aElement.hasAttr("href") ){
+						return aElement.attr("title");
+					}
+				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return color;
 	}
@@ -90,7 +110,7 @@ public class ItemServiceImpl implements ItemService {
 		try {
 			name = document.getElementsByAttributeValue("data-selenium", "product_name").first().text();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return name;
 	}
@@ -101,12 +121,12 @@ public class ItemServiceImpl implements ItemService {
 
 		try {
 			Element element = document.getElementsByAttributeValue("itemprop", "brand").first();
-			if (element.hasAttr("content")) {
+			if (element != null && element.hasAttr("content")) {
 				return element.attr("content");
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.writeLogText(e.getMessage());
 		}
 		return brand;
 	}

@@ -9,7 +9,7 @@ import lombok.Setter;
 public class Shop {
 
     @JsonProperty
-    private String city;
+    private String shopId;
 
     @JsonProperty
     private String address;

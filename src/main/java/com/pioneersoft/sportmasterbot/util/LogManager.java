@@ -1,7 +1,5 @@
 package com.pioneersoft.sportmasterbot.util;
 
-import com.pioneersoft.sportmasterbot.exception.BotException;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
@@ -12,7 +10,7 @@ public class LogManager {
 
     public static void writeLogText(String text){
         try (FileWriter writer = new FileWriter(LOG_PATH)){
-            text = new Date(System.currentTimeMillis()) +  text;
+            text = new Date(System.currentTimeMillis()) + " - " +  text + "\n";
             writer.write(text);
             writer.flush();
         } catch (IOException e) {
