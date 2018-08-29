@@ -12,99 +12,102 @@ import java.io.IOException;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    public Item findItemByItemId(String itemId) {
+	public Item findItemByItemId(String itemId) {
 
-        Item item = null;
+		Item item = null;
 
-        Document document = null;
-        try {
-            document = Jsoup.connect("https://www.sportmaster.ru/catalog/product/search.do?text=" + itemId).get();
+		Document document = null;
+		try {
+			document = Jsoup.connect("https://www.sportmaster.ru/catalog/product/search.do?text=" + itemId).get();
 
-            item = new Item();
-            item.setItemId(itemId);
-            item.setItemLink(document.baseUri());
+			item = new Item();
+			item.setItemId(itemId);
+			item.setItemLink(document.baseUri());
 
-            item.setItemBrand(extractBrand(document));
-            item.setItemName(extractName(document));
-            item.setColor(extractColor(document));
-            item.setSize(extractSize(document));
-            item.setInitPrice(extractInitPrice(document));
-            item.setPrice(extractPrice(document));
+			item.setItemBrand(extractBrand(document));
+			item.setItemName(extractName(document));
+			item.setColor(extractColor(document));
+			item.setSize(extractSize(document));
+			item.setInitPrice(extractInitPrice(document));
+			item.setPrice(extractPrice(document));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		return item;
+	}
 
-        return item;
-    }
+	private Integer extractPrice(Document document) {
+		Integer price = null;
 
-    private Integer extractPrice(Document document) {
-        Integer price = null;
+		try {
 
-        try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return price;
+	}
 
-        } catch (Exception e) {
+	private Integer extractInitPrice(Document document) {
+		Integer initPrice = null;
 
-        }
-        return price;
-    }
+		try {
 
-    private Integer extractInitPrice(Document document) {
-        Integer initPrice = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return initPrice;
+	}
 
-        try {
+	private String extractSize(Document document) {
+		String size = "";
 
-        } catch (Exception e) {
+		try {
 
-        }
-        return initPrice;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return size;
+	}
 
-    private String extractSize(Document document) {
-        String size = "";
+	private String extractColor(Document document) {
+		String color = "";
 
-        try {
+		try {
+			Element element = document.getElementsByAttributeValue("itemprop", "brand").first();
+			if (element.hasAttr("content")) {
+				return element.attr("content");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return color;
+	}
 
-        } catch (Exception e) {
+	private String extractName(Document document) {
+		String name = "";
+		try {
+			name = document.getElementsByAttributeValue("data-selenium", "product_name").first().text();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
 
-        }
-        return size;
-    }
+	private String extractBrand(Document document) {
 
-    private String extractColor(Document document) {
-        String color = "";
+		String brand = "";
 
-        try {
+		try {
+			Element element = document.getElementsByAttributeValue("itemprop", "brand").first();
+			if (element.hasAttr("content")) {
+				return element.attr("content");
+			}
 
-        } catch (Exception e) {
-
-        }
-        return color;
-    }
-
-    private String extractName(Document document) {
-        String name = "";
-
-        try {
-            name = document.getElementsByAttributeValue("data-selenium", "product_name").first().text();
-        } catch (Exception e) {
-
-        }
-        return name;
-    }
-
-    private String extractBrand(Document document) {
-
-        String brand = "";
-
-        try {
-            Element element = document.getElementsByAttributeValue("itemprop", "brand").first();
-            //TODO extract info
-
-        } catch (Exception e) {
-
-        }
-        return brand;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return brand;
+	}
 }
