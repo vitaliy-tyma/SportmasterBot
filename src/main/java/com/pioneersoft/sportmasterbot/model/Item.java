@@ -32,4 +32,9 @@ public class Item {
 
     @JsonProperty
     private String itemLink;
+
+    @Override
+    public String toString() {
+        return itemId + ( itemBrand!=null && !itemBrand.isEmpty() ? " - " + itemBrand : "") + " - " + itemName;
+    }
 }

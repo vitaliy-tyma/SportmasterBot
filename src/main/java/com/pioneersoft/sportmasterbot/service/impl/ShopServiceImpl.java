@@ -16,15 +16,15 @@ import java.util.Map;
 @Service
 public class ShopServiceImpl implements ShopService {
 
-    //400767WB38
     @Override
     public Map<String, Shop> getAllShops() {
         Map<String, Shop> allShops = new HashMap<>();
 
         try {
-            String content = Jsoup.connect("https://www.sportmaster.ru/rest/v1/store?_=" + System.currentTimeMillis()).get().text();
+            String url = "https://www.sportmaster.ru/rest/v1/store?_=" + System.currentTimeMillis();
+            String content = Jsoup.connect(url).ignoreContentType(true).execute().body();
 
-            if (content != null && content.startsWith("{")) {
+            if (content != null && (content.startsWith("{") || content.startsWith("[{") )) {
                 DocumentContext context = JsonPath.parse(content);
                 List<Map<String, Object>> shops = context.read("$.*");
 
@@ -38,7 +38,7 @@ public class ShopServiceImpl implements ShopService {
                         shopBO.setMetroStation("");
                     }
 
-                    allShops.put(shopBO.getShopId(), shopBO);
+                    allShops.put(String.valueOf(shop.get("id")), shopBO);
                 }
             }
         } catch (IOException e) {
@@ -56,13 +56,11 @@ public class ShopServiceImpl implements ShopService {
         }
 
         try {
-            String content = Jsoup.connect("https://www.sportmaster.ru/rest/v1/sku/" + itemId + "/store/region/stock/core?_=" + System.currentTimeMillis()).get().text();
-
-            if (content != null && content.startsWith("{")) {
+            String url = "https://www.sportmaster.ru/rest/v1/sku/" + itemId + "/store/region/stock/core?_=" + System.currentTimeMillis();
+            String content = Jsoup.connect(url).ignoreContentType(true).execute().body();
+            if (content != null && (content.startsWith("{") || content.startsWith("[{")) ) {
                 DocumentContext context = JsonPath.parse(content);
                 List<Map<String, Object>> filters = context.read("$.*");
-
-
 
                 for (Map<String, Object> filter : filters) {
 
