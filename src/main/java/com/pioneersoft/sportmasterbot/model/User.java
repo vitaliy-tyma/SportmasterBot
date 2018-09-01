@@ -20,6 +20,4 @@ public class User {
     @JsonProperty
     private String secondName;
 
-    @JsonProperty
-    private String email;
 }

@@ -18,14 +18,8 @@ public class Order {
     private Long orderTime;
 
     @JsonProperty
-    private String itemId;
+    private Item item;
 
     @JsonProperty
-    private String itemName;
-
-    @JsonProperty
-    private String itemColor;
-
-    @JsonProperty
-    private String itemSize;
+    private User user;
 }
