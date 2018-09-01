@@ -33,12 +33,12 @@ public class ShopServiceImpl implements ShopService {
                     shopBO.setShopId(String.valueOf(shop.get("id")));
                     shopBO.setAddress(String.valueOf(shop.get("address")));
                     if (shop.containsKey("metro")) {
-                        shopBO.setShopId(String.valueOf(shop.get("metro")));
+                        shopBO.setMetroStation(String.valueOf(shop.get("metro")));
                     } else {
                         shopBO.setMetroStation("");
                     }
 
-                    allShops.put(String.valueOf(shop.get("id")), shopBO);
+                    allShops.put(shopBO.getShopId(), shopBO);
                 }
             }
         } catch (IOException e) {
@@ -48,6 +48,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    @SuppressWarnings( "unchecked" )
     public Map<String, Shop> filterShopsByAvailableItem(Map<String, Shop> allShops, String itemId) {
         Map<String, Shop> filteredShops = new HashMap<>();
 

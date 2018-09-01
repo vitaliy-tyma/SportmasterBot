@@ -18,7 +18,7 @@ public class ItemServiceImpl implements ItemService {
 
 		Item item = null;
 
-		Document document = null;
+		Document document;
 		try {
 			document = Jsoup.connect("https://www.sportmaster.ru/catalog/product/search.do?text=" + itemId).get();
 
@@ -43,8 +43,6 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	private Integer extractPrice(Document document) {
-		Integer price = null;
-
 		try {
 			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_actual-price").first();
 			if (element != null) {
@@ -53,12 +51,10 @@ public class ItemServiceImpl implements ItemService {
 		} catch (Exception e) {
 			LogManager.writeLogText(e.getMessage());
 		}
-		return price;
+		return null;
 	}
 
 	private Integer extractInitPrice(Document document) {
-		Integer initPrice = null;
-
 		try {
 			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_old-price").first();
 			if (element != null) {
@@ -67,7 +63,7 @@ public class ItemServiceImpl implements ItemService {
 		} catch (Exception e) {
 			LogManager.writeLogText(e.getMessage());
 		}
-		return initPrice;
+		return null;
 	}
 
 	private String extractSize(Document document, String itemId) {

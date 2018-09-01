@@ -1,7 +1,6 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
 import com.pioneersoft.sportmasterbot.model.Shop;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -20,9 +19,7 @@ public class ShopServiceImplTest {
 
         System.out.println("------ ALL SHOPS ------");
         for (String key : allShops.keySet()) {
-            System.out.println(allShops.get(key).getAddress() +
-                    ( allShops.get(key).getMetroStation() !=null && !allShops.get(key).getMetroStation().isEmpty() ?
-                            " - Metro: " + allShops.get(key).getMetroStation() : ""));
+            System.out.println(allShops.get(key));
         }
 
     }
@@ -44,9 +41,7 @@ public class ShopServiceImplTest {
 
         System.out.println("------ FILTERED SHOPS ------");
         for (String key : filteredShops.keySet()) {
-            System.out.println( filteredShops.get(key).getAddress() +
-                    ( filteredShops.get(key).getMetroStation() !=null && !filteredShops.get(key).getMetroStation().isEmpty() ?
-                            " - Metro: " + filteredShops.get(key).getMetroStation() : ""));
+            System.out.println( filteredShops.get(key));
         }
     }
 }

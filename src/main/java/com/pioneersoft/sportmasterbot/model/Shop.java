@@ -17,8 +17,8 @@ public class Shop {
     @JsonProperty
     private String metroStation;
 
-//    @Override
-//    public String toString() {
-//        return shopId + " - " + address + ( metroStation!=null && !metroStation.isEmpty() ? " - Metro: " + metroStation : "");
-//    }
+    @Override
+    public String toString() {
+        return shopId + " - " + address + ( metroStation!=null && !metroStation.isEmpty() ? " - Metro: " + metroStation : "");
+    }
 }
