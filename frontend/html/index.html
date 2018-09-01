@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>authorization</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
+<div id="header">
+    <div class="content">
+        <h2>Welcome to Sportmaster order API</a></h2>
+    </div>
+</div>
+<br>
+<br>
+<div class="content">
+    <div class="table">
+        <br>
+        <div class="tab-content" class="table-tab">
+            <div class="table-content">
+                <table>
+                    <div class="content" id="main-box">
+                        <div id="authorisation">
+                            <div id="form">
+                                <form action="UserActionServlet">
+                                    <div class="input-name">
+                                        <label for="input-name" id="label-name">Name:</label>
+                                        <input id="input-name" size="24" type="text" name="accountName" required placeholder="Input login">
+                                    </div>
 
+                                    <div class="input-pass">
+                                        <label for="input-pass" id="label-pass">Password:</label>
+                                        <input id="input-pass" size="24" type="password" name="accountPassword" required placeholder="Input password">
+                                    </div>
+
+                                    <div id="botton" >
+                                        <input type="submit" class="btn-class" value="LOG IN">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
