@@ -67,7 +67,7 @@ body{
 .tab-content{
 	padding: 10px 10px 20px 10px;
 	margin-top: 10px;
-	width: 800px;
+	width: 1161px;
 	border: 1px solid transparent;
   	border-radius: 0 5px 5px 5px;
   	border-color: #ff9900;
@@ -213,14 +213,97 @@ border:1px solid #967D09;
  background-color: #f1d290;
 }
 
-.link-order{
-	float: left;
+#item-check{
+	border: 1px solid transparent;
+  	border-radius: 5px;
+  	border-color: #ff9900;
+	margin-top: 5px;
+	width: 320px;
+	padding: 20px 234px 38px 30px;
+	margin-left: 2px;
+	font-family: Arial, Verdana, Tahoma sans-serif;
+	text-transform: none;
+
 }
 
-.link-delete{
+#label-item{
+	margin: 10px 4px 10px 0px;
+}
+
+.input-item{
+ float: left;
+}
+
+#input-item{
+	margin-left: 15px;
+	font-family: Arial, Verdana, Tahoma sans-serif;
+	font-size: 15px;
+	border-radius: 2px;
+}
+
+#botton{
+	margin: -2px -213px 50px;
 	float: right;
 }
-</style>
+
+#order-btn{
+    font-size: 10px;
+    width: 90px;
+    border: 1px solid #CFB335;
+}
+
+.btn-class{
+ display: inline-block;
+ border:2px solid #CFB335;
+ color: #191502;
+ border-radius: 4px 4px 4px 4px;
+ -webkit-border-radius: 4px 4px 4px 4px;
+ -moz-border-radius: 4px 4px 4px 4px;
+ font-family: Verdana;
+ width: 201px;
+ height: auto;
+ font-size: 15px;
+ padding: 1px;
+ margin-left: 5px;
+ box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;
+ -moz-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;
+ -webkit-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;
+ text-shadow: 0 1px 0 #FFFFFF;
+ background-image: linear-gradient(to top, #F6FCA6, #FCFCFC);
+ background-color: #A1A165;
+}
+
+.btn-class:hover, {
+ border:2px solid #967D09;
+ color: #705D07;
+ box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ -moz-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ -webkit-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ background-color: #FCDF5B;
+}
+
+.btn-class:active{
+border:2px solid #967D09;
+ color: #705D07;
+ box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ -moz-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ -webkit-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
+ background-color: #967D09;
+}
+
+.col-1{
+width: 740px;
+}
+
+.col-2{
+width: 300px;
+}
+
+.col-3{
+width: 114px;
+}
+
+    </style>
 </head>
 <body>
 
@@ -242,26 +325,42 @@ border:1px solid #967D09;
 
         <div class="tab-content" class="table-tab">
             <div class="table-header">
-                <a href="#" class="tab-btn">Check article ID</a>
+                <div id="item-check">
+                    <div id="form">
+                        <form action="/item">
+                            <div class="input-item">
+                                <label for="input-item" id="label-item">Atricle ID:</label>
+                                <input id="input-item" size="24" type="text" name="itemid" required
+                                       placeholder="Input article id">
+                            </div>
+
+                            <div id="botton">
+                                <input type="submit" class="btn-class" value="CHECK ARTICLE ID">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
             <br>
             <div class="table-content">
                 <table>
                     <tr class="tr-header">
-                        <th>Shop address</th>
-                        <th>Metro</th>
-                        <th>Order</th>
+                        <th class="col-1">Shop address</th>
+                        <th class="col-2">Metro</th>
+                        <th class="col-3">Action</th>
                     </tr>
 
                     <tr class="tr-content">
-                        <td>Content ADDRESS</td>
-                        <td>Content METRO</td>
-                        <td class="row-btn">
-                            <div class="link-order">
-                                <a href="#"
-                                   class="btn-link">ORDER</a>
+                        <td class="col-1">Content ADDRESS</td>
+                        <td class="col-2">Content METRO</td>
+                        <td class="col-3 row-btn">
+                            <div>
+                                <form action="/order">
+                                    <input type="submit" class="btn-class" id="order-btn" value="Make order"/>
+                                </form>
                             </div>
-
                         </td>
                     </tr>
                 </table>
@@ -270,9 +369,11 @@ border:1px solid #967D09;
             <div class="table-footer">
                 <form action="/shop">
                     <label>
-                        <input type="checkbox" name="filtered" checked/>Filteredshops</label>
+                        <input type="checkbox" name="filtered"/>Filtered shops
+                    </label>
                     <label>
-                        <input type="checkbox" name="allshops" />All shops</label>
+                        <input type="checkbox" name="allshops"/>All shops
+                    </label>
                     <input type="submit" id="filter-btn" value="Filter"/>
                 </form>
             </div>
