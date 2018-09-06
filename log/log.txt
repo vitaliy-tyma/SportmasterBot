@@ -1,0 +1,105 @@
+Thu Sep 06 01:31:30 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 02:44:29 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:45:08 EEST 2018 - Request to StartController method GET
+Thu Sep 06 02:45:25 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 02:45:25 EEST 2018 - Try to check user login=ignatenko&password=12345 with password login=ignatenko&password=12345
+Thu Sep 06 02:46:41 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:49:58 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:50:07 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:50:32 EEST 2018 - Request to StartController method GET
+Thu Sep 06 02:50:43 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 02:50:43 EEST 2018 - Try to check user login=ignatenko&password=12345 with password login=ignatenko&password=12345
+Thu Sep 06 02:50:47 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:50:47 EEST 2018 - Try to get item info with id itemid=sdfsf
+Thu Sep 06 02:50:50 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:50:50 EEST 2018 - Try to get shops with filter filter1=filter to get item filter1=filter
+Thu Sep 06 02:50:52 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:50:52 EEST 2018 - Try to get shops with filter filter2=all to get item filter2=all
+Thu Sep 06 02:55:01 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:55:37 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:55:51 EEST 2018 - Request to StartController method GET
+Thu Sep 06 02:55:54 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 02:55:54 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 02:55:56 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:55:56 EEST 2018 - Try to get item info with id itemid=dfbhfg
+Thu Sep 06 02:55:58 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:55:58 EEST 2018 - Try to get shops with filter filter2=all to get item filter2=all
+Thu Sep 06 02:55:59 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:55:59 EEST 2018 - Try to get shops with filter filter1=filter to get item filter1=filter
+Thu Sep 06 02:56:01 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:56:01 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:58:47 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 02:58:59 EEST 2018 - Request to StartController method GET
+Thu Sep 06 02:59:02 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 02:59:02 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 02:59:04 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:04 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:21 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:21 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:24 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:24 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:25 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:25 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:27 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:27 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:28 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:28 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:29 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:29 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:30 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:30 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:31 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:31 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:32 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:32 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:32 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:32 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:32 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:32 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:32 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:32 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 02:59:32 EEST 2018 - Request to UserController method POST
+Thu Sep 06 02:59:32 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:01:03 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 03:01:18 EEST 2018 - Request to StartController method GET
+Thu Sep 06 03:01:21 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:01:21 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 03:01:24 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:01:24 EEST 2018 - Try to get item info with id itemid=vhgjfvj
+Thu Sep 06 03:01:26 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:01:26 EEST 2018 - Try to get shops with filter filter1=filter to get item filter1=filter
+Thu Sep 06 03:01:28 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:01:28 EEST 2018 - Try to get shops with filter filter2=all to get item filter2=all
+Thu Sep 06 03:01:29 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:01:29 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:18:54 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 03:19:10 EEST 2018 - Request to StartController method GET
+Thu Sep 06 03:19:11 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:19:11 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 03:19:21 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:19:21 EEST 2018 - Try to get item info with id itemid=fthdfyj
+Thu Sep 06 03:19:34 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:19:34 EEST 2018 - Try to get shops with filter filter1=filter to get item filter1=filter
+Thu Sep 06 03:19:41 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:19:41 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:19:43 EEST 2018 - Request to StartController method GET
+Thu Sep 06 03:19:57 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:19:57 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 03:19:59 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:19:59 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:29:18 EEST 2018 - -------------------- Start application --------------------
+Thu Sep 06 03:29:47 EEST 2018 - Request to StartController method GET
+Thu Sep 06 03:29:49 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:29:49 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 03:29:51 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:29:51 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:29:53 EEST 2018 - Request to StartController method GET
+Thu Sep 06 03:29:54 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:29:54 EEST 2018 - Try to check user login=ignatenko&password=22222 with password login=ignatenko&password=22222
+Thu Sep 06 03:29:56 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:29:56 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:29:57 EEST 2018 - Request to ItemCheckController method POST
+Thu Sep 06 03:29:57 EEST 2018 - Try to check user itemId=itemId&shopId=shopId with password itemId=itemId&shopId=shopId
+Thu Sep 06 03:30:03 EEST 2018 - Request to UserController method POST
+Thu Sep 06 03:30:03 EEST 2018 - Try to order item itemId=itemId&shopId=shopIdin shop itemId=itemId&shopId=shopId
+Thu Sep 06 03:30:04 EEST 2018 - Request to StartController method GET

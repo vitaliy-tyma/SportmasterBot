@@ -327,7 +327,7 @@ width: 114px;
             <div class="table-header">
                 <div id="item-check">
                     <div id="form">
-                        <form action="/item">
+                        <form action="/check/item" method="post">
                             <div class="input-item">
                                 <label for="input-item" id="label-item">Atricle ID:</label>
                                 <input id="input-item" size="24" type="text" name="itemid" required
@@ -357,7 +357,9 @@ width: 114px;
                         <td class="col-2">Content METRO</td>
                         <td class="col-3 row-btn">
                             <div>
-                                <form action="/order">
+                                <form action="/order" method="post">
+                                    <input type="text" hidden name="itemId" value="itemId"/>
+                                    <input type="text" hidden name="shopId" value="shopId"/>
                                     <input type="submit" class="btn-class" id="order-btn" value="Make order"/>
                                 </form>
                             </div>
@@ -367,12 +369,12 @@ width: 114px;
             </div>
             <br>
             <div class="table-footer">
-                <form action="/shop">
+                <form action="/check/filter" method="post">
                     <label>
-                        <input type="checkbox" name="filtered"/>Filtered shops
+                        <input type="checkbox" name="filter1" value="filter"/>Filtered shops
                     </label>
                     <label>
-                        <input type="checkbox" name="allshops"/>All shops
+                        <input type="checkbox" name="filter2" value="all"/>All shops
                     </label>
                     <input type="submit" id="filter-btn" value="Filter"/>
                 </form>

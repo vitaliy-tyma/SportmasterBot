@@ -95,15 +95,17 @@ body{
 	border-radius: 2px;
 }
 
-.botton-right{
+.botton-right, #link-to-start{
 	margin: 20px 26px 0px 685px;
+	text-decoration: none;
+	text-align:  center;
 }
 
 .botton-left{
 	margin: 20px 26px 0px 15px;
 }
 
-.btn-class{
+.btn-class, #link-to-start{
  display: inline-block;
  border:2px solid #CFB335;
  color: #191502;
@@ -124,7 +126,7 @@ body{
  background-color: #A1A165;
 }
 
-.btn-class:hover, {
+.btn-class:hover, #link-to-start:hover{
  border:2px solid #967D09;
  color: #705D07;
  box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
@@ -133,7 +135,7 @@ body{
  background-color: #FCDF5B;
 }
 
-.btn-class:active{
+.btn-class:active, #link-to-start:active{
 border:2px solid #967D09;
  color: #705D07;
  box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
@@ -141,6 +143,7 @@ border:2px solid #967D09;
  -webkit-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D;
  background-color: #967D09;
 }
+
 
 #keyname{
 	margin-right: 10px;
@@ -157,12 +160,15 @@ border:2px solid #967D09;
 }
 
 #authorisation{
-    float: right;
+    float: left;
+    margin: -57px 0 0 0;
 }
 
 #order{
-    float: left;
+    float: right;
+    margin: -77px 0 0 -30px;
 }
+
 
     </style>
 </head>
@@ -180,34 +186,34 @@ border:2px solid #967D09;
         <div class="tab-content" class="table-tab">
             <div class="table-content">
                 <div id="order-info">
-                Item ID: itemId
+                    Item ID: itemId
                     <br><br>
-                Item name: itemName
+                    Item name: itemName
                     <br><br>
-                Item price: itemPrice
+                    Item price: itemPrice
                     <br><br>
-                User: userLogin
+                    User: userLogin
                     <br><br>
-                Order ID: orderId
+                    Order ID: orderId
                     <br><br><br><br>
 
                 </div>
 
                 <div class="content" id="main-box">
-                    <div id="authorisation">
-                        <div id="auth-form">
-                            <form action="/user" method="post">
-                                <div class="botton-left">
-                                    <input type="submit" class="btn-class" value="BACK TO AUTH">
-                                </div>
-                            </form>
+                    <div id="order">
+                        <div id="order-form">
+                            <div class="botton-left">
+                                <a href="/" id="link-to-start">BACK TO AUTH</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="order">
-                        <div id="order-form">
-                            <form action="/order" method="post">
+                    <div id="authorisation">
+                        <div id="auth-form">
+                            <form action="/check/user" method="post">
                                 <div class="botton-right">
+                                    <input type="text" hidden name="itemId" value="itemId"/>
+                                    <input type="text" hidden name="shopId" value="shopId"/>
                                     <input type="submit" class="btn-class" value="BACK TO ORDER">
                                 </div>
                             </form>
