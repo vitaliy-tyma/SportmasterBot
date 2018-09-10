@@ -27,13 +27,13 @@ public class ShopServiceImplTest {
 //    @Ignore
     @Test
     public void filterShopsByAvailableItem() {
-        // 55891317M
-        // https://www.sportmaster.ru/product/10198205/?skuId=55891317M&text=55891317M
+        // S17AO1S454
+
 
         ShopServiceImpl shopService = new ShopServiceImpl();
         Map<String, Shop> allShops = shopService.getAllShops();
 
-        Map<String, Shop> filteredShops = shopService.filterShopsByAvailableItem(allShops, "55891317M");
+        Map<String, Shop> filteredShops = shopService.filterShopsByAvailableItem(allShops, "S17AO1S454");
 
         assertNotNull(filteredShops);
         assertTrue(!filteredShops.isEmpty());

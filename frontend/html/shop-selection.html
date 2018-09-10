@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shop selection</title>
-    <style type="text/css">
+<style type="text/css">
 
 body{
 	background-color: #f1f0f0;
@@ -234,7 +230,7 @@ border:1px solid #967D09;
  float: left;
 }
 
-#input-item{
+#input-item, option{
 	margin-left: 15px;
 	font-family: Arial, Verdana, Tahoma sans-serif;
 	font-size: 15px;
@@ -303,7 +299,30 @@ width: 300px;
 width: 114px;
 }
 
-    </style>
+#user-info-check{
+float: left;
+color: #ff0c0c;
+margin: 0 0 0 20px;
+<!--color: #ff9900;-->
+}
+
+#order{
+float: left;
+}
+
+#order-form{
+float: left;
+font-size: 11px;
+align: center;
+width: 95px;
+margin: 13px 0px 0px 40px;
+}
+
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop selection</title>
 </head>
 <body>
 
@@ -323,25 +342,9 @@ width: 114px;
         </ul>
         <br>
 
-        <div class="tab-content" class="table-tab">
+        <div class="tab-content">
             <div class="table-header">
-                <div id="item-check">
-                    <div id="form">
-                        <form action="/check/item" method="post">
-                            <div class="input-item">
-                                <label for="input-item" id="label-item">Atricle ID:</label>
-                                <input id="input-item" size="24" type="text" name="itemid" required
-                                       placeholder="Input article id">
-                            </div>
-
-                            <div id="botton">
-                                <input type="submit" class="btn-class" value="CHECK ARTICLE ID">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
+                !!!separator
             </div>
             <br>
             <div class="table-content">
@@ -352,33 +355,10 @@ width: 114px;
                         <th class="col-3">Action</th>
                     </tr>
 
-                    <tr class="tr-content">
-                        <td class="col-1">Content ADDRESS</td>
-                        <td class="col-2">Content METRO</td>
-                        <td class="col-3 row-btn">
-                            <div>
-                                <form action="/order" method="post">
-                                    <input type="text" hidden name="itemId" value="itemId"/>
-                                    <input type="text" hidden name="shopId" value="shopId"/>
-                                    <input type="submit" class="btn-class" id="order-btn" value="Make order"/>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                    !!!separator
                 </table>
             </div>
-            <br>
-            <div class="table-footer">
-                <form action="/check/filter" method="post">
-                    <label>
-                        <input type="checkbox" name="filter1" value="filter"/>Filtered shops
-                    </label>
-                    <label>
-                        <input type="checkbox" name="filter2" value="all"/>All shops
-                    </label>
-                    <input type="submit" id="filter-btn" value="Filter"/>
-                </form>
-            </div>
+
         </div>
 
     </div>
