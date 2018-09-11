@@ -1,5 +1,6 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
+import com.pioneersoft.sportmasterbot.model.User;
 import com.pioneersoft.sportmasterbot.service.UserService;
 import com.pioneersoft.sportmasterbot.util.Timer;
 import org.jsoup.Connection;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
         Map<String, String> cookies = initResponse.cookies();
 
-        Timer.waitSeconds(3);
+        Timer.waitSeconds(1);
 
         Connection connection  = Jsoup.connect("https://www.sportmaster.ru/user/session/login.do?continue=%2F");
 
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService {
 
         try {
             Connection.Response response = connection.ignoreContentType(true).method(Connection.Method.POST).execute();
-            Elements elements = response.parse().getElementsByAttributeValue("data-selenium", "link_login");
-            if ( elements.isEmpty() )
+            Map<String, String> userCookies = response.cookies();
+            if ( !userCookies.isEmpty() && userCookies.keySet().contains("userId") )
             {
                 return response;
             }
@@ -49,6 +50,12 @@ public class UserServiceImpl implements UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public User getUserInfo(Connection.Response userResponse) {
+
         return null;
     }
 }

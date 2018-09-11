@@ -36,9 +36,6 @@ public class CheckController {
         String itemBox =  htmlManager.getItemCheckBox("", login, password);
 
         String userBox = "";
-        if (userService.tryToLogin(login, password) == null) {
-            userBox = htmlManager.getUnauthorizedUserHtml();
-        }
 
         String tableRows = "";
 

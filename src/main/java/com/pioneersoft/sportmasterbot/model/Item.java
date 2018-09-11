@@ -9,31 +9,24 @@ import lombok.Setter;
 @Getter
 public class Item {
 
-    @JsonProperty
     private String itemId;
 
-    @JsonProperty
+    private String productId;
+
     private String itemBrand;
 
-    @JsonProperty
     private String itemName;
 
-    @JsonProperty
     private String color;
 
-    @JsonProperty
     private String size;
 
-    @JsonProperty
     private Integer price;
 
-    @JsonProperty
     private Integer initPrice;
 
-    @JsonProperty
     private String itemLink;
 
-    @Override
     public String toString() {
         return itemId + ( itemBrand!=null && !itemBrand.isEmpty() ? " - " + itemBrand : "") + " - " + itemName;
     }
