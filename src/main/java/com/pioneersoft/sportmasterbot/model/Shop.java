@@ -8,16 +8,12 @@ import lombok.Setter;
 @Getter
 public class Shop {
 
-    @JsonProperty
     private String shopId;
 
-    @JsonProperty
     private String address;
 
-    @JsonProperty
     private String metroStation;
 
-    @Override
     public String toString() {
         return shopId + " - " + address + ( metroStation!=null && !metroStation.isEmpty() ? " - Metro: " + metroStation : "");
     }

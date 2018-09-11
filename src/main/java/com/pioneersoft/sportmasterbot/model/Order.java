@@ -8,18 +8,13 @@ import lombok.Setter;
 @Getter
 public class Order {
 
-    @JsonProperty
     private Integer orderId;
 
-    @JsonProperty
     private Integer amount;
 
-    @JsonProperty
     private Long orderTime;
 
-    @JsonProperty
     private Item item;
 
-    @JsonProperty
     private User user;
 }

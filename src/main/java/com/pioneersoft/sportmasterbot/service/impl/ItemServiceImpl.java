@@ -28,6 +28,7 @@ public class ItemServiceImpl implements ItemService {
 				item.setItemId(itemId);
 				item.setItemLink(document.baseUri());
 
+				item.setProductId(extractProductId(document));
 				item.setItemBrand(extractBrand(document));
 				item.setItemName(extractName(document));
 				item.setColor(extractColor(document));
@@ -40,6 +41,22 @@ public class ItemServiceImpl implements ItemService {
 		}
 
 		return item;
+	}
+
+	private String extractProductId(Document document) {
+		String productId = "";
+
+		try {
+			Elements aElements = document.getElementsByAttributeValueContaining("class", "js-compare-link");
+			for (Element element : aElements){
+				if ( element.hasAttr("data-id") ){
+					productId = element.attr("data-id");
+				}
+			}
+		} catch (Exception e) {
+			LogManager.writeLogText(e.getMessage());
+		}
+		return productId;
 	}
 
 	private Integer extractPrice(Document document) {
