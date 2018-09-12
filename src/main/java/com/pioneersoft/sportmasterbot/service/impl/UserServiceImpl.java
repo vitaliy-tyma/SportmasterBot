@@ -1,10 +1,14 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import com.pioneersoft.sportmasterbot.model.User;
 import com.pioneersoft.sportmasterbot.service.UserService;
 import com.pioneersoft.sportmasterbot.util.Timer;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -16,7 +20,7 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public Connection.Response tryToLogin(String login, String pass){
+    public Connection.Response tryToLogin(String login, String pass) {
 
         Connection.Response initResponse = Jsoup.connect("https://www.sportmaster.ru/user/session/login.do").response();
 
@@ -24,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
         Timer.waitSeconds(1);
 
-        Connection connection  = Jsoup.connect("https://www.sportmaster.ru/user/session/login.do?continue=%2F");
+        Connection connection = Jsoup.connect("https://www.sportmaster.ru/user/session/login.do?continue=%2F");
 
         connection.header("accept", " text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
         connection.header("accept-encoding", " gzip, deflate, br");
@@ -42,8 +46,7 @@ public class UserServiceImpl implements UserService {
         try {
             Connection.Response response = connection.ignoreContentType(true).method(Connection.Method.POST).execute();
             Map<String, String> userCookies = response.cookies();
-            if ( !userCookies.isEmpty() && userCookies.keySet().contains("userId") )
-            {
+            if (!userCookies.isEmpty() && userCookies.keySet().contains("userId")) {
                 return response;
             }
 
@@ -56,6 +59,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInfo(Connection.Response userResponse) {
 
-        return null;
+        User user = null;
+        if (userResponse != null) {
+            try {
+                Document document = userResponse.parse();
+
+                String jsonInHtml = document.getElementsByTag("sm-delivery-page").first().attr("params");
+                jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
+                jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
+
+                DocumentContext context = JsonPath.parse(jsonInHtml);
+                user.setEmail(context.read("$.contacts.email", String.class));
+                user.setName(context.read("$.contacts.name", String.class));
+                user.setPhone(context.read("$.contacts.phone", String.class));
+
+                user.setUserWebId(userResponse.cookies().get("userId"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return user;
     }
 }

@@ -19,6 +19,7 @@
         <spring-context.version>5.0.2.RELEASE</spring-context.version>
         <jsoup.version>1.11.2</jsoup.version>
         <jayway.version>2.4.0</jayway.version>
+        <string-utils.version>3.7</string-utils.version>
     </properties>
 
     <dependencies>
@@ -105,6 +106,13 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>${jayway.version}</version>
+        </dependency>
+
+        <!-- StringUtils -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${string-utils.version}</version>
         </dependency>
 
         <!-- JUNIT -->
