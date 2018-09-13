@@ -8,7 +8,11 @@ import lombok.Setter;
 @Getter
 public class Order {
 
-    private Integer orderId;
+    private String orderId;
+
+    private String address;
+
+    private String metro;
 
     private Integer amount;
 

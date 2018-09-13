@@ -16,9 +16,8 @@ public class User {
     private String userWebId;
 
     private String userWebCookies;
-    
-    private String email;
-    
+
     private String phone;
-    
+
+    private String email;
 }
