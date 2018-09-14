@@ -260,4 +260,30 @@ public class OrderServiceImpl implements OrderService {
 
         return addConnection.ignoreContentType(true).method(Connection.Method.POST).response();
     }
+
+	@Override
+	public String getOrdrInfoBox(Order order) {
+		String orderBox = 
+				"<div id=\"order-info\">\n" + 
+				"                    Item ID: " + order.getItem().getItemId() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    Item name: " + order.getItem().getItemName() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    Item price: " + order.getItem().getPrice() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    User: " + order.getUser().getName() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    User login: " + order.getUser().getLogin() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    Store metro: " + order.getMetro() == null ? "" : order.getMetro()  + "\n" + 
+				"                    <br><br>\n" + 
+				"                    Store address: " + order.getAddress() + "\n" + 
+				"                    <br><br>\n" + 
+				"                    Order ID: " + order.getOrderId() + "\n" + 
+				"                    <br><br><br><br>\n" + 
+				"\n" + 
+				"                </div>";
+		
+		return null;
+	}
 }

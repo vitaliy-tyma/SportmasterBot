@@ -185,20 +185,9 @@ border:2px solid #967D09;
         <br>
         <div class="tab-content" class="table-tab">
             <div class="table-content">
-                <div id="order-info">
-                    Item ID: itemId
-                    <br><br>
-                    Item name: itemName
-                    <br><br>
-                    Item price: itemPrice
-                    <br><br>
-                    User: userLogin
-                    <br><br>
-                    Order ID: orderId
-                    <br><br><br><br>
-
-                </div>
-
+                <div>
+                %1$s
+				</div>
                 <div class="content" id="main-box">
                     <div id="order">
                         <div id="order-form">
@@ -212,8 +201,8 @@ border:2px solid #967D09;
                         <div id="auth-form">
                             <form action="/check/user" method="post">
                                 <div class="botton-right">
-                                    <input type="text" hidden name="login" value=%1$s""/>
-                                    <input type="text" hidden name="password" value="%2$s"/>
+                                    <input type="text" hidden name="login" value="%2$s"/>
+                                    <input type="text" hidden name="password" value="%3$s"/>
                                     <input type="submit" class="btn-class" value="BACK TO ORDER">
                                 </div>
                             </form>

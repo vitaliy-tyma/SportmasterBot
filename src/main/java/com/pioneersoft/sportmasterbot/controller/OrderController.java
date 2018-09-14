@@ -1,5 +1,7 @@
 package com.pioneersoft.sportmasterbot.controller;
 
+import com.pioneersoft.sportmasterbot.model.Order;
+import com.pioneersoft.sportmasterbot.service.OrderService;
 import com.pioneersoft.sportmasterbot.util.HtmlManager;
 import com.pioneersoft.sportmasterbot.util.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class OrderController {
 
     @Autowired
     HtmlManager htmlManager;
+    
+    @Autowired
+    OrderService orderService;
 
     @PostMapping
     public ResponseEntity<String> makeOrder
@@ -23,7 +28,10 @@ public class OrderController {
         LogManager.writeLogText("Request to UserController method POST");
         LogManager.writeLogText("Try to order item " + itemId + " in shop " + shopId + " for account " + login);
 
+        Order order = orderService.makeOrder(itemId, shopId, login, password);
 
+        
+        
         String html = htmlManager.readFromFile("order-info.html");
         html = String.format(html, login, password);
 
