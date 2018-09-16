@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             Document cartDocument = cartConnection.ignoreContentType(true).get();
 
-            String jsonContent = StringUtils.substringBetween(cartDocument.toString(), "ko.observable(", ");");
+            String jsonContent = StringUtils.substringBetween(cartDocument.toString(), "quickCart = ko.observable(", ");");
 
             DocumentContext jsonContext = JsonPath.parse(jsonContent);
 
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
 
             Set<String> itemIdSet = new HashSet<>(itemIdList);
 
-            String version = jsonContext.read("$.version");
+            String version = String.valueOf(jsonContext.read("$.version"));
 
             for (String itemId : itemIdSet){
                 removeItemFromCart(itemId, version, userCookies);
@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
         removeConnection.header("x-requested-with", "XMLHttpRequest");
         removeConnection.header("x-sm-basketversion", version);
 
-        removeConnection.data(itemId);
+        removeConnection.data("skuIds", itemId);
 
         try {
             removeConnection.ignoreContentType(true).method(Connection.Method.POST).execute();

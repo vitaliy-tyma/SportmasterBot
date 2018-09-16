@@ -150,7 +150,7 @@ public class HtmlManager {
                     "                    <br><br><br><br>" +
                     "                </div>"
                     +
-                    "<div class=\"content\" id=\"main-box\">" +
+                    "                   <div class=\"content\" id=\"main-box\">" +
                     "                    <div id=\"order\">" +
                     "                        <div id=\"order-form\">" +
                     "                            <div class=\"botton-left\">" +
