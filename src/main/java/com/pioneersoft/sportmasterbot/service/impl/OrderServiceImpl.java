@@ -35,66 +35,74 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order makeOrder(String itemId, String shopId, String login, String password) {
 
-
         Connection.Response userResponse = userService.tryToLogin(login, password);
+
         Map<String, String> userCookies = userResponse.cookies();
 
-        removeItemsFromCartBeforeMakeNewOrder(userCookies);
+        removeItemsFromCartBeforeMakeNewOrder(login, password);
 
         Order order = null;
-        if (userResponse != null) {
-            Item item = itemService.findItemByItemId(itemId);
+
+        Item item = itemService.findItemByItemId(itemId);
 
 
-            makeAddResponse(userCookies, item);
+        makeAddResponse(userCookies, item);
 
-            makeSetPickupResponse(userCookies, itemId, shopId);
+        makeSetPickupResponse(userCookies, itemId, shopId);
 
-            makeSubmitResponse(userCookies);
+        makeSubmitResponse(userCookies);
 
-            Document deliveryResponce = makeDeliveryResponse(userCookies);
+        Document deliveryResponce = makeDeliveryResponse(userCookies);
 
-            if (deliveryResponce != null) {
-                User user = userService.getUserInfo(deliveryResponce);
-                user.setLogin(login);
-                user.setPassword(password);
+        String basketVersion = getBasketVersion(deliveryResponce);
 
-                String basketVersion = getBasketVersion(deliveryResponce);
+        if (deliveryResponce != null) {
+            User user = userService.getUserInfo(deliveryResponce);
+            if (user == null) {
+                return null;
+            }
 
-                String jsonRequest = createJsonRequest(user, shopId);
+            user.setLogin(login);
+            user.setPassword(password);
 
-                makeOrderResponse(userCookies, jsonRequest, basketVersion);
 
-                Document orderResponse = makeThanksResponse(userCookies);
+            String jsonRequest = createJsonRequest(user, shopId);
 
-                if (orderResponse != null) {
-                    String orderInfo = orderResponse.getElementsByTag("sm-basket-thanks").attr("params");
+            makeOrderResponse(userCookies, jsonRequest, basketVersion);
 
-                    order = new Order();
+            Document orderResponse = makeThanksResponse(userCookies);
 
-                    order.setAmount(1);
-                    order.setItem(item);
-                    order.setUser(user);
-                    order.setOrderTime(System.currentTimeMillis());
-                    order.setOrderId(extractOrderId(orderInfo));
-                    order.setAddress(extractAddress(orderInfo));
-                    order.setMetro(extractMetro(orderInfo));
+            if (orderResponse != null) {
+                String orderInfo = orderResponse.getElementsByTag("sm-basket-thanks").attr("params");
 
-                    LogManager.writeLogText("Order " + order.getOrderId() + "was made");
+                order = new Order();
 
-                    return order;
+                order.setAmount(1);
+                order.setItem(item);
+                order.setUser(user);
+                order.setOrderTime(System.currentTimeMillis());
+                order.setOrderId(extractOrderId(orderInfo));
+                order.setAddress(extractAddress(orderInfo));
+                order.setMetro(extractMetro(orderInfo));
 
-                }
+                LogManager.writeLogText("Order " + order.getOrderId() + "was made");
+
+                return order;
 
             }
 
         }
 
-        return order;
+        return null;
     }
 
-    private void removeItemsFromCartBeforeMakeNewOrder(Map<String, String> userCookies) {
+    @Override
+    public void removeItemsFromCartBeforeMakeNewOrder(String login, String password) {
         Connection cartConnection = Jsoup.connect("https://www.sportmaster.ru/basket/checkout.do");
+
+        Connection.Response userResponse = userService.tryToLogin(login, password);
+
+        Map<String, String> userCookies = userResponse.cookies();
 
         cartConnection.cookies(userCookies);
 
@@ -115,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 
             String version = String.valueOf(jsonContext.read("$.version"));
 
-            for (String itemId : itemIdSet){
+            for (String itemId : itemIdSet) {
                 removeItemFromCart(itemId, version, userCookies);
 
                 Timer.waitSeconds(1);
@@ -149,12 +157,10 @@ public class OrderServiceImpl implements OrderService {
     private String getBasketVersion(Document deliveryResponce) {
         if (deliveryResponce != null) {
             String jsonInHtml = deliveryResponce.getElementsByTag("sm-delivery-page").first().attr("params");
-            jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
-            jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
 
-            DocumentContext context = JsonPath.parse(jsonInHtml);
-
-            return String.valueOf(context.read("$.basket.contentVersion"));
+            String version = StringUtils.substringAfterLast(jsonInHtml, "\"contentVersion\":");
+            version = StringUtils.substringBefore(version, "},\"");
+            return version;
         }
         return StringUtils.EMPTY;
     }

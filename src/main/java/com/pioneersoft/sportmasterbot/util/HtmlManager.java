@@ -136,16 +136,16 @@ public class HtmlManager {
                     "                    <br><br>" +
                     "                    Item name: " + order.getItem().getItemName() +
                     "                    <br><br>" +
-                    "                    Item price: " + order.getItem().getPrice() +
+                    "                    Item price: " + order.getItem().getPrice() + " RUB" +
                     "                    <br><br>" +
                     "                    User: " + order.getUser().getName() +
                     "                    <br><br>" +
                     "                    User login: " + order.getUser().getLogin() +
                     "                    <br><br>" +
-                    "                    Store metro: " + order.getMetro() +
-                    "                    <br><br>" +
-                    "                    Store address: " + order.getAddress() +
-                    "                    <br><br>" +
+//                    "                    Store metro: " + order.getMetro() +
+//                    "                    <br><br>" +
+//                    "                    Store address: " + order.getAddress() +
+//                    "                    <br><br>" +
                     "                    Order ID: " + order.getOrderId() +
                     "                    <br><br><br><br>" +
                     "                </div>"
@@ -158,17 +158,17 @@ public class HtmlManager {
                     "                            </div>" +
                     "                        </div>" +
                     "                    </div>" +
-                    "                    <div id=\"authorisation\">" +
-                    "                        <div id=\"auth-form\">" +
-                    "                            <form action=\"/check/user\" method=\"post\">" +
-                    "                                <div class=\"botton-right\">" +
-                    "                                    <input type=\"text\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\"/>" +
-                    "                                    <input type=\"text\" hidden name=\"password\" value=\""+order.getUser().getPassword()+"\"/>" +
-                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"BACK TO ORDER\">" +
-                    "                                </div>" +
-                    "                            </form>" +
-                    "                        </div>" +
-                    "                    </div>" +
+//                    "                    <div id=\"authorisation\">" +
+//                    "                        <div id=\"auth-form\">" +
+//                    "                            <form action=\"/check/user\" method=\"post\">" +
+//                    "                                <div class=\"botton-right\">" +
+//                    "                                    <input type=\"text\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\"/>" +
+//                    "                                    <input type=\"text\" hidden name=\"password\" value=\""+order.getUser().getPassword()+"\"/>" +
+//                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"BACK TO ORDER\">" +
+//                    "                                </div>" +
+//                    "                            </form>" +
+//                    "                        </div>" +
+//                    "                    </div>" +
                     "                </div>";
         }
         return "<div id=\"order-info-check\">" +

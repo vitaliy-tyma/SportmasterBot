@@ -17,10 +17,10 @@ public class ShopServiceImplTest {
         assertNotNull(allShops);
         assertTrue(!allShops.isEmpty());
 
-        System.out.println("------ ALL SHOPS ------");
-        for (String key : allShops.keySet()) {
-            System.out.println(allShops.get(key));
-        }
+//        System.out.println("------ ALL SHOPS ------");
+//        for (String key : allShops.keySet()) {
+//            System.out.println(allShops.get(key));
+//        }
 
     }
 
@@ -39,9 +39,9 @@ public class ShopServiceImplTest {
         assertTrue(!filteredShops.isEmpty());
         assertTrue(allShops.size() >= filteredShops.size());
 
-        System.out.println("------ FILTERED SHOPS ------");
-        for (String key : filteredShops.keySet()) {
-            System.out.println( filteredShops.get(key));
-        }
+//        System.out.println("------ FILTERED SHOPS ------");
+//        for (String key : filteredShops.keySet()) {
+//            System.out.println( filteredShops.get(key));
+//        }
     }
 }

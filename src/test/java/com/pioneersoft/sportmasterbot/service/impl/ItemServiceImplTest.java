@@ -13,8 +13,8 @@ public class ItemServiceImplTest {
         Item item = itemsService.findItemByItemId("ESS025DA38");
 
         assertNotNull(item);
-        assertEquals("S17AO1S454", item.getItemId());
+        assertEquals("ESS025DA38", item.getItemId());
 
-        System.out.println(item);
+//        System.out.println(item);
     }
 }

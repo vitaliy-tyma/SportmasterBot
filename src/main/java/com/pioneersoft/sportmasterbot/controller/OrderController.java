@@ -32,6 +32,7 @@ public class OrderController {
 
         String html = htmlManager.getOrderPage(order);
 
+        orderService.removeItemsFromCartBeforeMakeNewOrder(login, password);
         return new ResponseEntity<>(html, HttpStatus.OK);
     }
 

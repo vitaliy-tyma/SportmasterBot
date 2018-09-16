@@ -58,15 +58,16 @@ public class UserServiceImpl implements UserService {
 
         User user = null;
         if (userResponse != null) {
+            if (userResponse.getElementsByTag("sm-delivery-page").isEmpty())
+            {
+                return user;
+            }
             String jsonInHtml = userResponse.getElementsByTag("sm-delivery-page").first().attr("params");
-            jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
-            jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
 
-            DocumentContext context = JsonPath.parse(jsonInHtml);
             user = new User();
-            user.setEmail(context.read("$.contacts.email", String.class));
-            user.setName(context.read("$.contacts.name", String.class));
-            user.setPhone(context.read("$.contacts.phone", String.class));
+            user.setEmail(StringUtils.substringBetween(jsonInHtml, "\",\"email\":\"", "\",\"confirmedPhones\""));
+            user.setName(StringUtils.substringBetween(jsonInHtml, "\"contacts\":{\"name\":\"", "\",\"phone\":\""));
+            user.setPhone(StringUtils.substringBetween(jsonInHtml, "\",\"phone\":\"", "\",\"email\":\""));
 
             user.setUserWebId(StringUtils.substringBetween(userResponse.toString(), "ko.observable('", ";)"));
 
