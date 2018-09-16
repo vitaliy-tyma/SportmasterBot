@@ -16,6 +16,6 @@ public class ApplicationRunner
     {
         LogManager.writeLogText("-------------------- Start application --------------------");
 
-        ApplicationContext context = SpringApplication.run(new Class<?>[] {ApplicationRunner.class}, args);
+        SpringApplication.run(new Class<?>[] {ApplicationRunner.class}, args);
     }
 }
