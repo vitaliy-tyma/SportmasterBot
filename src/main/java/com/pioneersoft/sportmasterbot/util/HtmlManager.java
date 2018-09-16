@@ -46,7 +46,7 @@ public class HtmlManager {
                 "                        <h3>User was not authorised!</h3>\n" +
                 "                    </div>\n" +
                 "                    <div id=\"order\">\n" +
-                "                        <a href=\"/\" class=\"btn-class\" id=\"order-form\">BACK TO AUTH</a>\n" +
+                "                        <a href=\"/start\" class=\"btn-class\" id=\"order-form\">BACK TO AUTH</a>\n" +
                 "                    </div>\n" +
                 "                </div>";
     }
@@ -154,7 +154,7 @@ public class HtmlManager {
                     "                    <div id=\"order\">" +
                     "                        <div id=\"order-form\">" +
                     "                            <div class=\"botton-left\">" +
-                    "                                <a href=\"/\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                    "                                <a href=\"/start\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
                     "                            </div>" +
                     "                        </div>" +
                     "                    </div>" +
