@@ -1,5 +1,6 @@
 package com.pioneersoft.sportmasterbot.util;
 
+import com.pioneersoft.sportmasterbot.model.Order;
 import com.pioneersoft.sportmasterbot.model.Shop;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,7 @@ public class HtmlManager {
         return html;
     }
 
-    public String getItemCheckBox(String itemId, String login, String password){
+    public String getItemCheckBox(String itemId, String login, String password) {
         String html;
 
         String htmlTemplate = "<div id=\"item-check\">\n" +
@@ -85,9 +86,9 @@ public class HtmlManager {
                 "                            <div class=\"input-item\">\n" +
                 "                                <label for=\"input-item\" id=\"label-item\">Atricle ID:</label>\n" +
                 "                                <input id=\"input-item\" size=\"24\" type=\"text\" name=\"itemId\" required\n" +
-                "                                       placeholder=\"Input article id\" %s>\n" +
-                "                                <input type=\"text\" name=\"login\" hidden %s>\n"+
-                "                                <input type=\"text\" name=\"password\" hidden %s>\n"+
+                "                                       placeholder=\"Input article id\" %1$s>\n" +
+                "                                <input type=\"text\" name=\"login\" hidden %2$s>\n" +
+                "                                <input type=\"text\" name=\"password\" hidden %3$s>\n" +
                 "                            </div>\n" +
                 "                            <div id=\"botton\">\n" +
                 "                                <input type=\"submit\" class=\"btn-class\" value=\"CHECK ARTICLE ID\">\n" +
@@ -96,16 +97,15 @@ public class HtmlManager {
                 "                    </div>\n" +
                 "                </div>";
 
-         if (itemId != null && !itemId.isEmpty()){
-             html = String.format(htmlTemplate, "value=\""+itemId+"\"", "value=\""+login+"\"", "value=\""+password+"\"");
-         }
-         else{
-             html = String.format(htmlTemplate, "", "value=\""+login+"\"", "value=\""+password+"\"");
-         }
+        if (itemId != null && !itemId.isEmpty()) {
+            html = String.format(htmlTemplate, "value=\"" + itemId + "\"", "value=\"" + login + "\"", "value=\"" + password + "\"");
+        } else {
+            html = String.format(htmlTemplate, " ", "value=\"" + login + "\"", "value=\"" + password + "\"");
+        }
         return html;
     }
 
-    public String getItemSelectionPage(String itemBox, String userBox, String rows){
+    public String getItemSelectionPage(String itemBox, String userBox, String rows) {
         String html = readFromFile("shop-selection.html");
 
         String[] parts = html.split("!!!separator");
@@ -119,5 +119,62 @@ public class HtmlManager {
         sb.append(parts[2]);
 
         return sb.toString();
+    }
+
+    public String getOrderPage(Order order) {
+        String html = readFromFile("order-info.html");
+        String[] parts = html.split("!!!Separator");
+
+        return parts[0] + getOrderBox(order) + parts[1];
+    }
+
+    private String getOrderBox(Order order) {
+
+        if (order != null){
+            return "<div id=\"order-info\">" +
+                    "                    Item ID: " + order.getItem().getItemId() +
+                    "                    <br><br>" +
+                    "                    Item name: " + order.getItem().getItemName() +
+                    "                    <br><br>" +
+                    "                    Item price: " + order.getItem().getPrice() +
+                    "                    <br><br>" +
+                    "                    User: " + order.getUser().getName() +
+                    "                    <br><br>" +
+                    "                    User login: " + order.getUser().getLogin() +
+                    "                    <br><br>" +
+                    "                    Store metro: " + order.getMetro() +
+                    "                    <br><br>" +
+                    "                    Store address: " + order.getAddress() +
+                    "                    <br><br>" +
+                    "                    Order ID: " + order.getOrderId() +
+                    "                    <br><br><br><br>" +
+                    "                </div>"
+                    +
+                    "<div class=\"content\" id=\"main-box\">" +
+                    "                    <div id=\"order\">" +
+                    "                        <div id=\"order-form\">" +
+                    "                            <div class=\"botton-left\">" +
+                    "                                <a href=\"/\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                    "                            </div>" +
+                    "                        </div>" +
+                    "                    </div>" +
+                    "                    <div id=\"authorisation\">" +
+                    "                        <div id=\"auth-form\">" +
+                    "                            <form action=\"/check/user\" method=\"post\">" +
+                    "                                <div class=\"botton-right\">" +
+                    "                                    <input type=\"text\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\"/>" +
+                    "                                    <input type=\"text\" hidden name=\"password\" value=\""+order.getUser().getPassword()+"\"/>" +
+                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"BACK TO ORDER\">" +
+                    "                                </div>" +
+                    "                            </form>" +
+                    "                        </div>" +
+                    "                    </div>" +
+                    "                </div>";
+        }
+        return "<div id=\"order-info-check\">" +
+                " Order was not created                   " +
+                "    <br><br><br><br>" +
+                "</div>";
+
     }
 }

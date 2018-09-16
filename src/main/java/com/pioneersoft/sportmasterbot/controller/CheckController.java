@@ -53,7 +53,7 @@ public class CheckController {
         if (item != null) {
             itemBox = htmlManager.getItemCheckBox(item.getItemId(), login, password);
         } else {
-            itemBox = htmlManager.getItemCheckBox("", login, password);
+            itemBox = htmlManager.getItemCheckBox(" ", login, password);
 
         }
 
@@ -67,6 +67,6 @@ public class CheckController {
 
 
        String html = htmlManager.getItemSelectionPage(itemBox, userBox, tableRows);
-       return new ResponseEntity<String>(html, HttpStatus.OK);
+       return new ResponseEntity<>(html, HttpStatus.OK);
     }
 }

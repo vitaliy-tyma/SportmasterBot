@@ -6,6 +6,4 @@ public interface OrderService {
 
     Order makeOrder(String itemId, String shopId, String login, String password);
     
-    String getOrdrInfoBox(Order order);
-
 }

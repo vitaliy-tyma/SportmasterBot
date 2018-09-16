@@ -9,9 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -57,26 +54,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserInfo(Connection.Response userResponse) {
+    public User getUserInfo(Document userResponse) {
 
         User user = null;
         if (userResponse != null) {
-            try {
-                Document document = userResponse.parse();
+            String jsonInHtml = userResponse.getElementsByTag("sm-delivery-page").first().attr("params");
+            jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
+            jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
 
-                String jsonInHtml = document.getElementsByTag("sm-delivery-page").first().attr("params");
-                jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
-                jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
+            DocumentContext context = JsonPath.parse(jsonInHtml);
+            user = new User();
+            user.setEmail(context.read("$.contacts.email", String.class));
+            user.setName(context.read("$.contacts.name", String.class));
+            user.setPhone(context.read("$.contacts.phone", String.class));
 
-                DocumentContext context = JsonPath.parse(jsonInHtml);
-                user.setEmail(context.read("$.contacts.email", String.class));
-                user.setName(context.read("$.contacts.name", String.class));
-                user.setPhone(context.read("$.contacts.phone", String.class));
+            user.setUserWebId(StringUtils.substringBetween(userResponse.toString(), "ko.observable('", ";)"));
 
-                user.setUserWebId(userResponse.cookies().get("userId"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         return user;

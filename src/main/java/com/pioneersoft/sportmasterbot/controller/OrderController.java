@@ -30,12 +30,9 @@ public class OrderController {
 
         Order order = orderService.makeOrder(itemId, shopId, login, password);
 
-        
-        
-        String html = htmlManager.readFromFile("order-info.html");
-        html = String.format(html, login, password);
+        String html = htmlManager.getOrderPage(order);
 
-        return new ResponseEntity<String>(html, HttpStatus.OK);
+        return new ResponseEntity<>(html, HttpStatus.OK);
     }
 
 }

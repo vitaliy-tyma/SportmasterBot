@@ -161,7 +161,7 @@ border:2px solid #967D09;
 
 #authorisation{
     float: left;
-    margin: -57px 0 0 0;
+    margin: -57px 0 0 -200px;
 }
 
 #order{
@@ -169,6 +169,12 @@ border:2px solid #967D09;
     margin: -77px 0 0 -30px;
 }
 
+#order-info-check{
+float: left;
+color: #ff0c0c;
+margin: 0 0 0 20px;
+<!--color: #ff9900;-->
+}
 
     </style>
 </head>
@@ -186,29 +192,9 @@ border:2px solid #967D09;
         <div class="tab-content" class="table-tab">
             <div class="table-content">
                 <div>
-                %1$s
+                    !!!Separator
 				</div>
-                <div class="content" id="main-box">
-                    <div id="order">
-                        <div id="order-form">
-                            <div class="botton-left">
-                                <a href="/" id="link-to-start">BACK TO AUTH</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="authorisation">
-                        <div id="auth-form">
-                            <form action="/check/user" method="post">
-                                <div class="botton-right">
-                                    <input type="text" hidden name="login" value="%2$s"/>
-                                    <input type="text" hidden name="password" value="%3$s"/>
-                                    <input type="submit" class="btn-class" value="BACK TO ORDER">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
