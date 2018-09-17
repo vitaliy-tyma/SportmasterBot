@@ -1,6 +1,7 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
 import com.pioneersoft.sportmasterbot.model.Shop;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class ShopServiceImplTest {
 
+    @Ignore
     @Test
     public void getAllShops() {
         ShopServiceImpl shopService = new ShopServiceImpl();
@@ -24,7 +26,7 @@ public class ShopServiceImplTest {
 
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void filterShopsByAvailableItem() {
         // S17AO1S454

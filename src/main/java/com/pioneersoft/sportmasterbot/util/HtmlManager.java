@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class HtmlManager {
 
-    private static final String MAIN_DIR = System.getProperty("user.dir");
+    private static final String MAIN_DIR = "classpath:";
 
     private static final String SEP = System.getProperty("file.separator");
 

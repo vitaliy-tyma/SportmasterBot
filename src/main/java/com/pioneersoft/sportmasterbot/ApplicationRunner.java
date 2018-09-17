@@ -11,14 +11,12 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class ApplicationRunner {
+public class ApplicationRunner extends SpringBootServletInitializer {
 
-//        extends SpringBootServletInitializer {
-//
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return application.sources(ApplicationRunner.class);
-//    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ApplicationRunner.class);
+    }
 
     public static void main( String[] args )
     {
