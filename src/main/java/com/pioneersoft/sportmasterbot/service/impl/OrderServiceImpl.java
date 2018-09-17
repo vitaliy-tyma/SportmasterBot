@@ -27,10 +27,10 @@ import java.util.Set;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
 
     @Override
     public Order makeOrder(String itemId, String shopId, String login, String password) {
@@ -39,9 +39,9 @@ public class OrderServiceImpl implements OrderService {
 
         Map<String, String> userCookies = userResponse.cookies();
 
-        removeItemsFromCartBeforeMakeNewOrder(login, password);
+        removeItemsFromCart(login, password);
 
-        Order order = null;
+        Order order;
 
         Item item = itemService.findItemByItemId(itemId);
 
@@ -87,6 +87,7 @@ public class OrderServiceImpl implements OrderService {
 
                 LogManager.writeLogText("Order " + order.getOrderId() + "was made");
 
+                removeItemsFromCart(login, password);
                 return order;
 
             }
@@ -97,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void removeItemsFromCartBeforeMakeNewOrder(String login, String password) {
+    public void removeItemsFromCart(String login, String password) {
         Connection cartConnection = Jsoup.connect("https://www.sportmaster.ru/basket/checkout.do");
 
         Connection.Response userResponse = userService.tryToLogin(login, password);
@@ -121,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
 
             Set<String> itemIdSet = new HashSet<>(itemIdList);
 
-            String version = String.valueOf(jsonContext.read("$.version"));
+            String version = String.valueOf(jsonContext.read("$.version", Integer.class));
 
             for (String itemId : itemIdSet) {
                 removeItemFromCart(itemId, version, userCookies);
@@ -167,6 +168,10 @@ public class OrderServiceImpl implements OrderService {
 
     private String extractMetro(String orderInfo) {
         String metro = StringUtils.substringBetween(orderInfo, "shopMetro : ", "shopAddress : ");
+        if(StringUtils.isBlank(metro))
+        {
+            return StringUtils.EMPTY;
+        }
         metro = metro.replaceAll("\"", "");
         metro = metro.replaceAll("&quot;", "");
 
@@ -177,6 +182,10 @@ public class OrderServiceImpl implements OrderService {
 
     private String extractAddress(String orderInfo) {
         String address = StringUtils.substringBetween(orderInfo, "shopAddress : ", "workTime");
+        if(StringUtils.isBlank(address))
+        {
+            return StringUtils.EMPTY;
+        }
         address = address.replaceAll("\"", "");
         address = address.replaceAll("&quot;", "");
 
@@ -232,48 +241,48 @@ public class OrderServiceImpl implements OrderService {
 
     private String createJsonRequest(User user, String shopId) {
         return "{\n" +
-                "  \"pickupInfos\": [\n" +
-                "    {\n" +
-                "      \"groupId\": \"SHOP_" + shopId + "\",\n" +
-                "      \"paymentType\": \"CASH_STORE\",\n" +
-                "      \"comment\": null,\n" +
-                "      \"customContacts\": false,\n" +
-                "      \"contacts\": {\n" +
-                "        \"name\": null,\n" +
-                "        \"phone\": null,\n" +
-                "        \"email\": null\n" +
-                "      }\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"oldDuplicateStatus\": false,\n" +
-                "  \"oldPhone\": \"" + user.getPhone() + "\",\n" +
-                "  \"cashlessInfo\": {\n" +
-                "    \"organisation\": null,\n" +
-                "    \"address\": null,\n" +
-                "    \"inn\": null,\n" +
-                "    \"kpp\": null,\n" +
-                "    \"gendir\": null,\n" +
-                "    \"glavbuh\": null,\n" +
-                "    \"bank\": null,\n" +
-                "    \"bankAddress\": null,\n" +
-                "    \"bankBik\": null,\n" +
-                "    \"account\": null,\n" +
-                "    \"bankCorAccount\": null\n" +
-                "  },\n" +
-                "  \"contacts\": {\n" +
-                "    \"name\": \"" + user.getName() + "\",\n" +
-                "    \"phone\": \"" + user.getPhone() + "\",\n" +
-                "    \"email\": \"" + user.getEmail() + "\"\n" +
-                "  },\n" +
-                "  \"forceContactsConfirmation\": false,\n" +
-                "  \"sendSmsWithStoreInfo\": false,\n" +
-                "  \"promotions\": [\n" +
-                "    {\n" +
-                "      \"groupId\": \"SHOP_" + shopId + "\",\n" +
+                "  \"pickupInfos\": [" +
+                "    {" +
+                "      \"groupId\": \"SHOP_" + shopId + "\"," +
+                "      \"paymentType\": \"CASH_STORE\"," +
+                "      \"comment\": null," +
+                "      \"customContacts\": false," +
+                "      \"contacts\": {" +
+                "        \"name\": null," +
+                "        \"phone\": null," +
+                "        \"email\": null" +
+                "      }" +
+                "    }" +
+                "  ]," +
+                "  \"oldDuplicateStatus\": false," +
+                "  \"oldPhone\": \"" + user.getPhone() + "\"," +
+                "  \"cashlessInfo\": {" +
+                "    \"organisation\": null," +
+                "    \"address\": null," +
+                "    \"inn\": null," +
+                "    \"kpp\": null," +
+                "    \"gendir\": null," +
+                "    \"glavbuh\": null," +
+                "    \"bank\": null," +
+                "    \"bankAddress\": null," +
+                "    \"bankBik\": null," +
+                "    \"account\": null," +
+                "    \"bankCorAccount\": null" +
+                "  }," +
+                "  \"contacts\": {" +
+                "    \"name\": \"" + user.getName() + "\"," +
+                "    \"phone\": \"" + user.getPhone() + "\"," +
+                "    \"email\": \"" + user.getEmail() + "\"" +
+                "  }," +
+                "  \"forceContactsConfirmation\": false," +
+                "  \"sendSmsWithStoreInfo\": false," +
+                "  \"promotions\": [" +
+                "    {" +
+                "      \"groupId\": \"SHOP_" + shopId + "\"," +
                 "      \"promoIds\": [],\n" +
-                "      \"usedPromoIds\": []\n" +
-                "    }\n" +
-                "  ]\n" +
+                "      \"usedPromoIds\": []" +
+                "    }" +
+                "  ]" +
                 "}";
     }
 

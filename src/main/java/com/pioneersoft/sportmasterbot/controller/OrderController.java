@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class OrderController {
 
     @Autowired
-    HtmlManager htmlManager;
+    private HtmlManager htmlManager;
     
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @PostMapping
     public ResponseEntity<String> makeOrder
@@ -32,7 +32,7 @@ public class OrderController {
 
         String html = htmlManager.getOrderPage(order);
 
-        orderService.removeItemsFromCartBeforeMakeNewOrder(login, password);
+        orderService.removeItemsFromCart(login, password);
         return new ResponseEntity<>(html, HttpStatus.OK);
     }
 
