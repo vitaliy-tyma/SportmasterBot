@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(path = "/order")
+@RequestMapping(path = "/api/order")
 public class OrderController {
 
     private static Logger logger = Logger.getLogger(OrderController.class.getName());
