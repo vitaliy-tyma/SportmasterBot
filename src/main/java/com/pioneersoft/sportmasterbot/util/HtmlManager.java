@@ -3,6 +3,7 @@ package com.pioneersoft.sportmasterbot.util;
 import com.pioneersoft.sportmasterbot.model.Order;
 import com.pioneersoft.sportmasterbot.model.Shop;
 import com.pioneersoft.sportmasterbot.service.impl.UserServiceImpl;
+import com.pioneersoft.sportmasterbot.util.html.HtmlTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -14,30 +15,6 @@ import java.util.logging.Logger;
 public class HtmlManager {
 
     private static Logger logger = Logger.getLogger(HtmlManager.class.getName());
-
-    private static final String MAIN_DIR = "/html";
-
-    private static final String SEP = System.getProperty("file.separator");
-
-
-    private static final String FILE_PATH =
-            MAIN_DIR + SEP;
-
-    public String readFromFile(String fileName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try
-                (FileReader reader = new FileReader(FILE_PATH + fileName);
-                 BufferedReader bufReader = new BufferedReader(reader)) {
-            String line;
-            while ((line = bufReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (Exception e) {
-            logger.severe("Exception in reading " + fileName);
-        }
-
-        return stringBuilder.toString();
-    }
 
     public String getUnauthorizedUserHtml() {
         return "                <div>\n" +
@@ -105,7 +82,7 @@ public class HtmlManager {
     }
 
     public String getItemSelectionPage(String itemBox, String userBox, String rows) {
-        String html = readFromFile("shop-selection.html");
+        String html = HtmlTemplate.SHOP_SELECTION;
 
         String[] parts = html.split("!!!separator");
 
@@ -121,7 +98,7 @@ public class HtmlManager {
     }
 
     public String getOrderPage(Order order) {
-        String html = readFromFile("order-info.html");
+        String html = HtmlTemplate.ORDER_INFO;
         String[] parts = html.split("!!!Separator");
 
         return parts[0] + getOrderBox(order) + parts[1];
