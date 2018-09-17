@@ -4,7 +4,6 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.pioneersoft.sportmasterbot.model.Shop;
 import com.pioneersoft.sportmasterbot.service.ShopService;
-import com.pioneersoft.sportmasterbot.util.LogManager;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +11,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class ShopServiceImpl implements ShopService {
+
+    private static Logger logger = Logger.getLogger(ShopServiceImpl.class.getName());
 
     @Override
     public Map<String, Shop> getAllShops() {
@@ -42,7 +44,7 @@ public class ShopServiceImpl implements ShopService {
                 }
             }
         } catch (IOException e) {
-            LogManager.writeLogText(e.getMessage());
+            logger.severe(e.getMessage());
         }
         return allShops;
     }
@@ -74,7 +76,7 @@ public class ShopServiceImpl implements ShopService {
                 }
             }
         } catch (IOException e) {
-            LogManager.writeLogText(e.getMessage());
+            logger.severe(e.getMessage());
         }
         return filteredShops;
     }

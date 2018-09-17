@@ -8,7 +8,6 @@ import com.pioneersoft.sportmasterbot.model.User;
 import com.pioneersoft.sportmasterbot.service.ItemService;
 import com.pioneersoft.sportmasterbot.service.OrderService;
 import com.pioneersoft.sportmasterbot.service.UserService;
-import com.pioneersoft.sportmasterbot.util.LogManager;
 import com.pioneersoft.sportmasterbot.util.Timer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
@@ -22,9 +21,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    private static Logger logger = Logger.getLogger(OrderServiceImpl.class.getName());
 
     @Autowired
     private UserService userService;
@@ -85,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
                 order.setAddress(extractAddress(orderInfo));
                 order.setMetro(extractMetro(orderInfo));
 
-                LogManager.writeLogText("Order " + order.getOrderId() + "was made");
+                logger.info("Order " + order.getOrderId() + "was made");
 
                 removeItemsFromCart(login, password);
                 return order;

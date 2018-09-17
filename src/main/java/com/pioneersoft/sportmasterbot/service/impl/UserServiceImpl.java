@@ -1,7 +1,5 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
 import com.pioneersoft.sportmasterbot.model.User;
 import com.pioneersoft.sportmasterbot.service.UserService;
 import com.pioneersoft.sportmasterbot.util.Timer;
@@ -13,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
     public Connection.Response tryToLogin(String login, String pass) {
 
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe(e.getMessage());
         }
         return null;
     }

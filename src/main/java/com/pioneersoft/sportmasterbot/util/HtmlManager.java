@@ -2,27 +2,26 @@ package com.pioneersoft.sportmasterbot.util;
 
 import com.pioneersoft.sportmasterbot.model.Order;
 import com.pioneersoft.sportmasterbot.model.Shop;
+import com.pioneersoft.sportmasterbot.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class HtmlManager {
 
-    private static final String MAIN_DIR = "classpath:";
+    private static Logger logger = Logger.getLogger(HtmlManager.class.getName());
+
+    private static final String MAIN_DIR = "/html";
 
     private static final String SEP = System.getProperty("file.separator");
 
 
     private static final String FILE_PATH =
-            MAIN_DIR +
-                    SEP +
-                    "frontend" +
-                    SEP +
-                    "html" +
-                    SEP;
+            MAIN_DIR + SEP;
 
     public String readFromFile(String fileName) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -34,7 +33,7 @@ public class HtmlManager {
                 stringBuilder.append(line);
             }
         } catch (Exception e) {
-            LogManager.writeLogText("Exception in reading " + fileName);
+            logger.severe("Exception in reading " + fileName);
         }
 
         return stringBuilder.toString();
@@ -158,17 +157,6 @@ public class HtmlManager {
                     "                            </div>" +
                     "                        </div>" +
                     "                    </div>" +
-//                    "                    <div id=\"authorisation\">" +
-//                    "                        <div id=\"auth-form\">" +
-//                    "                            <form action=\"/check/user\" method=\"post\">" +
-//                    "                                <div class=\"botton-right\">" +
-//                    "                                    <input type=\"text\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\"/>" +
-//                    "                                    <input type=\"text\" hidden name=\"password\" value=\""+order.getUser().getPassword()+"\"/>" +
-//                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"BACK TO ORDER\">" +
-//                    "                                </div>" +
-//                    "                            </form>" +
-//                    "                        </div>" +
-//                    "                    </div>" +
                     "                </div>";
         }
         return "<div id=\"order-info-check\">" +
