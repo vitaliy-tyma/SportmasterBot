@@ -55,23 +55,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserInfo(Document userResponse) {
+    public User getUserInfo(String jsonContent) {
 
         User user = null;
-        if (userResponse != null) {
-            if (userResponse.getElementsByTag("sm-delivery-page").isEmpty())
-            {
-                return user;
-            }
-            String jsonInHtml = userResponse.getElementsByTag("sm-delivery-page").first().attr("params");
-
+        if (jsonContent != null && StringUtils.startsWith(jsonContent, "{")) {
             user = new User();
-            user.setEmail(StringUtils.substringBetween(jsonInHtml, "\",\"email\":\"", "\",\"confirmedPhones\""));
-            user.setName(StringUtils.substringBetween(jsonInHtml, "\"contacts\":{\"name\":\"", "\",\"phone\":\""));
-            user.setPhone(StringUtils.substringBetween(jsonInHtml, "\",\"phone\":\"", "\",\"email\":\""));
-
-            user.setUserWebId(StringUtils.substringBetween(userResponse.toString(), "ko.observable('", ";)"));
-
+            user.setEmail(StringUtils.substringBetween(jsonContent, "\",\"email\":\"", "\",\"confirmedPhones\""));
+            user.setName(StringUtils.substringBetween(jsonContent, "\"contacts\":{\"name\":\"", "\",\"phone\":\""));
+            user.setPhone(StringUtils.substringBetween(jsonContent, "\",\"phone\":\"", "\",\"email\":\""));
         }
 
         return user;

@@ -8,5 +8,4 @@ public interface OrderService {
 
     Order makeOrder(String itemId, String shopId, String login, String password);
 
-    void removeItemsFromCart(String login, String password);
 }

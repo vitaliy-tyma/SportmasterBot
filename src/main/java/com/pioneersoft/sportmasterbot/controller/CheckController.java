@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(path = "/api/check")
+@RequestMapping(path = "/check")
+//@RequestMapping(path = "/api/check")
 public class CheckController {
 
     private static Logger logger = Logger.getLogger(CheckController.class.getName());

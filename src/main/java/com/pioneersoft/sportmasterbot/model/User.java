@@ -13,10 +13,6 @@ public class User {
 
     private String name;
 
-    private String userWebId;
-
-    private String userWebCookies;
-
     private String phone;
 
     private String email;

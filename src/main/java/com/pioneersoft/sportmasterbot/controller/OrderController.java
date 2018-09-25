@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(path = "/api/order")
+@RequestMapping(path = "/order")
+//@RequestMapping(path = "/api/order")
 public class OrderController {
 
     private static Logger logger = Logger.getLogger(OrderController.class.getName());
@@ -34,7 +35,6 @@ public class OrderController {
 
         String html = htmlManager.getOrderPage(order);
 
-        orderService.removeItemsFromCart(login, password);
         return new ResponseEntity<>(html, HttpStatus.OK);
     }
 

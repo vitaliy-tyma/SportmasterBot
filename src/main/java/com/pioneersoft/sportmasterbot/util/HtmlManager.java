@@ -118,10 +118,10 @@ public class HtmlManager {
                     "                    <br><br>" +
                     "                    User login: " + order.getUser().getLogin() +
                     "                    <br><br>" +
-//                    "                    Store metro: " + order.getMetro() +
-//                    "                    <br><br>" +
-//                    "                    Store address: " + order.getAddress() +
-//                    "                    <br><br>" +
+                    "                    Store metro: " + order.getMetro() +
+                    "                    <br><br>" +
+                    "                    Store address: " + order.getAddress() +
+                    "                    <br><br>" +
                     "                    Order ID: " + order.getOrderId() +
                     "                    <br><br><br><br>" +
                     "                </div>"
@@ -139,7 +139,16 @@ public class HtmlManager {
         return "<div id=\"order-info-check\">" +
                 " Order was not created                   " +
                 "    <br><br><br><br>" +
-                "</div>";
-
+                "</div>"
+                +
+                "                   <div class=\"content\" id=\"main-box\">" +
+                "                    <div id=\"order\">" +
+                "                        <div id=\"order-form\">" +
+                "                            <div class=\"botton-left\">" +
+                "                                <a href=\"/\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                "                            </div>" +
+                "                        </div>" +
+                "                    </div>" +
+                "                </div>";
     }
 }

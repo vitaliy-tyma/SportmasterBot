@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(path = "/api/")
+@RequestMapping(path = "/")
+//@RequestMapping(path = "/api/")
 public class StartController {
 
     private static Logger logger = Logger.getLogger(StartController.class.getName());

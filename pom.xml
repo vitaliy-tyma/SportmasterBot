@@ -7,7 +7,7 @@
     <groupId>com.pioneersoft</groupId>
     <artifactId>sportmaster-bot</artifactId>
     <version>1.0.0</version>
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
 
     <name>sportmaster-bot</name>
 
@@ -27,6 +27,7 @@
         <jsoup.version>1.11.2</jsoup.version>
         <jayway.version>2.4.0</jayway.version>
         <string-utils.version>3.7</string-utils.version>
+        <selenium.version>2.52.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,26 @@
             <version>${jsoup.version}</version>
         </dependency>
 
+        <!-- SELENIUM WEB DRIVER -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- SELENIUM -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+
         <!-- JAYWAY -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -128,7 +149,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <version>${spring-boot.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
     </dependencies>
