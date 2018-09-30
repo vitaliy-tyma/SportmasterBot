@@ -68,10 +68,6 @@ public class OrderServiceImpl implements OrderService {
 
         driver = getCartSubmitDriver(driver);
 
-        if (driver == null) {
-            return order;
-        }
-
         User user = getUserFromPage(driver);
 
         if (user == null) {
@@ -88,6 +84,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderId(extractOrderId(driver));
 
         if (StringUtils.isBlank(order.getOrderId())) {
+            driver.quit();
             return null;
         }
 
@@ -162,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
         builder.moveToElement(selectBtnElement)
                 .click(selectBtnElement).build().perform();
 
-        Timer.waitSeconds(3);
+        Timer.waitSeconds(1);
 
         List<WebElement> trElements = driver.findElements(By.tagName("tr"));
         Timer.waitSeconds(1);
@@ -221,9 +218,9 @@ public class OrderServiceImpl implements OrderService {
     private WebDriver getAuthorizedDriver(String login, String password) {
 
         WebDriver driver = WebDriverUtil.getWebDriver();
-        driver.get("https://www.sportmaster.ru/user/session/login.do");
-        Timer.waitSeconds(2);
 
+        driver.get("https://www.sportmaster.ru/user/session/login.do");
+        Timer.waitSeconds(1);
 
         WebElement inputNameElement = driver.findElement(By.name("email"));
         WebElement inputPasswordElement = driver.findElement(By.name("password"));

@@ -2,12 +2,9 @@ package com.pioneersoft.sportmasterbot.util;
 
 import com.pioneersoft.sportmasterbot.model.Order;
 import com.pioneersoft.sportmasterbot.model.Shop;
-import com.pioneersoft.sportmasterbot.service.impl.UserServiceImpl;
 import com.pioneersoft.sportmasterbot.util.html.HtmlTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -97,14 +94,14 @@ public class HtmlManager {
         return sb.toString();
     }
 
-    public String getOrderPage(Order order) {
+    public String getOrderPage(Order order, String login, String pass) {
         String html = HtmlTemplate.ORDER_INFO;
         String[] parts = html.split("!!!Separator");
 
-        return parts[0] + getOrderBox(order) + parts[1];
+        return parts[0] + getOrderBox(order, login, pass) + parts[1];
     }
 
-    private String getOrderBox(Order order) {
+    private String getOrderBox(Order order, String login, String pass) {
 
         if (order != null){
             return "<div id=\"order-info\">" +
@@ -130,7 +127,21 @@ public class HtmlManager {
                     "                    <div id=\"order\">" +
                     "                        <div id=\"order-form\">" +
                     "                            <div class=\"botton-left\">" +
-                    "                                <a href=\"/\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                    "                        <div id=\"form\">\n" +
+                    "                            <form action=\"/check/user\" method=\"post\">\n" +
+                    "                                <div class=\"input-name\">\n" +
+                    "                                    <input id=\"input-name\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\">\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div class=\"input-pass\">\n" +
+                    "                                    <input id=\"input-pass\" hidden name=\"password\" value=\""+order.getUser().getLogin()+"\">\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"botton\">\n" +
+                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"NEW ORDER\">\n" +
+                    "                                </div>\n" +
+                    "                            </form>\n" +
+                    "                        </div>\n" +
                     "                            </div>" +
                     "                        </div>" +
                     "                    </div>" +
@@ -145,7 +156,21 @@ public class HtmlManager {
                 "                    <div id=\"order\">" +
                 "                        <div id=\"order-form\">" +
                 "                            <div class=\"botton-left\">" +
-                "                                <a href=\"/\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                "                        <div id=\"form\">\n" +
+                "                            <form action=\"/check/user\" method=\"post\">\n" +
+                "                                <div class=\"input-name\">\n" +
+                "                                    <input id=\"input-name\" hidden name=\"login\" value=\""+login+"\">\n" +
+                "                                </div>\n" +
+                "\n" +
+                "                                <div class=\"input-pass\">\n" +
+                "                                    <input id=\"input-pass\" hidden name=\"password\" value=\""+pass+"\">\n" +
+                "                                </div>\n" +
+                "\n" +
+                "                                <div id=\"botton\">\n" +
+                "                                    <input type=\"submit\" class=\"btn-class\" value=\"NEW ORDER\">\n" +
+                "                                </div>\n" +
+                "                            </form>\n" +
+                "                        </div>\n" +
                 "                            </div>" +
                 "                        </div>" +
                 "                    </div>" +
