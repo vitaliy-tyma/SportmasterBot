@@ -14,11 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Service
@@ -72,18 +72,6 @@ public class OrderServiceImpl implements OrderService {
             return order;
         }
 
-        driver = getDeliverySubmitDriver(driver);
-
-        order = new Order();
-
-        order.setOrderId(extractOrderId(driver));
-        if (StringUtils.isBlank(order.getOrderId())){
-            return null;
-        }
-
-        order.setAddress(shop.getAddress());
-        order.setMetro(shop.getMetroStation());
-
         User user = getUserFromPage(driver);
 
         if (user == null) {
@@ -92,6 +80,19 @@ public class OrderServiceImpl implements OrderService {
 
         user.setLogin(login);
         user.setPassword(password);
+
+        driver = getDeliverySubmitDriver(driver);
+
+        order = new Order();
+
+        order.setOrderId(extractOrderId(driver));
+
+        if (StringUtils.isBlank(order.getOrderId())) {
+            return null;
+        }
+
+        order.setAddress(shop.getAddress());
+        order.setMetro(shop.getMetroStation());
 
         Item item = itemService.findItemByItemId(itemId);
 
@@ -113,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
         WebElement element = driver.findElement(By.tagName("sm-basket-thanks"));
         String jsonContent = element.getAttribute("params");
 
-        if (StringUtils.isNotBlank(jsonContent)){
+        if (StringUtils.isNotBlank(jsonContent)) {
             return StringUtils.substringBetween(jsonContent, "number : \"", "\",");
         }
 
@@ -122,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 
     private WebDriver getDeliverySubmitDriver(WebDriver driver) {
         WebElement submitElement = driver.findElement(By.id("gtm-shipping-continue"));
-        submitElement.submit();
+        submitElement.click();
 
         Timer.waitSeconds(1);
 
@@ -143,7 +144,7 @@ public class OrderServiceImpl implements OrderService {
 
     private WebDriver getCartSubmitDriver(WebDriver driver) {
         WebElement submitElement = driver.findElement(By.id("gtm-cart-continue"));
-        submitElement.submit();
+        submitElement.click();
 
         Timer.waitSeconds(1);
 
@@ -156,23 +157,19 @@ public class OrderServiceImpl implements OrderService {
     private WebDriver getShopSelectedDriver(WebDriver driver, String shopAddress) {
 
         WebElement selectBtnElement = driver.findElement(By.id("gtm-cart-store-select"));
-        selectBtnElement.click();
-
         Timer.waitSeconds(1);
-        String currentWindow = driver.getWindowHandle();
-        Set<String> windows = driver.getWindowHandles();
+        Actions builder = new Actions(driver);
+        builder.moveToElement(selectBtnElement)
+                .click(selectBtnElement).build().perform();
 
-        for (String window : windows){
-            if ( !window.equals(currentWindow) ){
-                driver.switchTo().window(window);
-            }
-        }
+        Timer.waitSeconds(3);
 
         List<WebElement> trElements = driver.findElements(By.tagName("tr"));
+        Timer.waitSeconds(1);
         for (WebElement trElement : trElements) {
             if (StringUtils.containsIgnoreCase(trElement.getText(), shopAddress)) {
                 WebElement submitElement = trElement.findElement(By.tagName("input"));
-                submitElement.submit();
+                submitElement.click();
                 Timer.waitSeconds(1);
 
                 driver.get("https://www.sportmaster.ru/basket/checkout.do");
@@ -181,12 +178,14 @@ public class OrderServiceImpl implements OrderService {
                 return driver;
             }
         }
+        driver.quit();
         return null;
     }
 
     private WebDriver getAddToCartDriver(WebDriver driver) {
 
         List<WebElement> aElements = driver.findElements(By.tagName("a"));
+        Timer.waitSeconds(1);
         for (WebElement aElement : aElements) {
             if (StringUtils.equals(aElement.getAttribute("data-selenium"), "add_to_basket")) {
                 aElement.click();
@@ -198,7 +197,7 @@ public class OrderServiceImpl implements OrderService {
                 return driver;
             }
         }
-
+        driver.quit();
         return null;
     }
 
@@ -215,6 +214,7 @@ public class OrderServiceImpl implements OrderService {
             return driver;
         }
 
+        driver.quit();
         return null;
     }
 
@@ -222,21 +222,23 @@ public class OrderServiceImpl implements OrderService {
 
         WebDriver driver = WebDriverUtil.getWebDriver();
         driver.get("https://www.sportmaster.ru/user/session/login.do");
-        Timer.waitSeconds(1);
+        Timer.waitSeconds(2);
 
-        List<WebElement> inputElements = driver.findElements(By.tagName("input"));
-        for (WebElement element : inputElements) {
-            if (StringUtils.equals(element.getAttribute("name"), "email")) {
-                element.sendKeys(login);
-            }
 
-            if (StringUtils.equals(element.getAttribute("name"), "password")) {
-                element.sendKeys(password);
-            }
+        WebElement inputNameElement = driver.findElement(By.name("email"));
+        WebElement inputPasswordElement = driver.findElement(By.name("password"));
+
+        if (inputNameElement != null) {
+            inputNameElement.sendKeys(login);
         }
 
+        if (inputPasswordElement != null) {
+            inputPasswordElement.sendKeys(password);
+        }
+
+
         WebElement submitElement = driver.findElement(By.id("submitButton"));
-        submitElement.submit();
+        submitElement.click();
         Timer.waitSeconds(1);
 
         driver.get("https://www.sportmaster.ru/");
@@ -245,7 +247,7 @@ public class OrderServiceImpl implements OrderService {
         if (!StringUtils.contains(driver.getPageSource(), "<a href=\"/user/profile/home.do\" data-bind=\"text: window.globals.username\"></a>")) {
             return driver;
         }
-
+        driver.quit();
         return null;
     }
 

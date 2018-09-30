@@ -10,14 +10,15 @@ public class WebDriverUtil {
 
     public static WebDriver getWebDriver(){
 
-//        System.setProperty("webdriver.chrome.driver", "D:\\selenium\\chromedriver.exe");
-//        WebDriver driver = new ChromeDriver();
-        WebDriver driver = new HtmlUnitDriver();
+        System.setProperty("webdriver.chrome.driver", "D:\\selenium\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+//        HtmlUnitDriver driver = new HtmlUnitDriver(true);
 
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
 
-        Timer.waitSeconds(1);
+
+        Timer.waitSeconds(2);
 
         return driver;
     }
