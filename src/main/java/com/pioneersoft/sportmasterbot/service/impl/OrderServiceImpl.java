@@ -99,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderTime(System.currentTimeMillis());
 
 
-        logger.info("Order " + order.getOrderId() + "was made");
+        logger.info("Order " + order.getOrderId() + " was made!");
 
         driver.quit();
 
