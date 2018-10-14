@@ -431,6 +431,7 @@ public class HtmlTemplate {
             " font-size: 16px;\n" +
             " padding: 5px;\n" +
             " margin-left: 11px;\n" +
+            " margin-top: 90px;\n\n" +
             " box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;\n" +
             " -moz-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;\n" +
             " -webkit-box-shadow: inset 0 1px 0 0 #FFF6CE,inset 0 -1px 0 0 #E3C852,inset 0 0 0 1px #FCE88D,0 2px 4px 0 #D4D4D4;\n" +

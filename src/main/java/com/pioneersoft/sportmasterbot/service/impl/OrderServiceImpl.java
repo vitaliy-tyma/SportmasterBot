@@ -134,9 +134,7 @@ public class OrderServiceImpl implements OrderService {
         WebElement element = driver.findElement(By.tagName("sm-delivery-page"));
         String jsonContent = element.getAttribute("params");
 
-        User user = userService.getUserInfo(jsonContent);
-
-        return user;
+        return userService.getUserInfo(jsonContent);
     }
 
     private WebDriver getCartSubmitDriver(WebDriver driver) {
@@ -153,28 +151,34 @@ public class OrderServiceImpl implements OrderService {
 
     private WebDriver getShopSelectedDriver(WebDriver driver, String shopAddress) {
 
-        WebElement selectBtnElement = driver.findElement(By.id("gtm-cart-store-select"));
-        Timer.waitSeconds(1);
-        Actions builder = new Actions(driver);
-        builder.moveToElement(selectBtnElement)
-                .click(selectBtnElement).build().perform();
+        try {
+            WebElement selectBtnElement = driver.findElement(By.id("gtm-cart-store-select"));
+            Timer.waitSeconds(1);
+            Actions builder = new Actions(driver);
+            builder.moveToElement(selectBtnElement)
+                    .click(selectBtnElement).build().perform();
 
-        Timer.waitSeconds(1);
+            Timer.waitSeconds(1);
 
-        List<WebElement> trElements = driver.findElements(By.tagName("tr"));
-        Timer.waitSeconds(1);
-        for (WebElement trElement : trElements) {
-            if (StringUtils.containsIgnoreCase(trElement.getText(), shopAddress)) {
-                WebElement submitElement = trElement.findElement(By.tagName("input"));
-                submitElement.click();
-                Timer.waitSeconds(1);
+            List<WebElement> trElements = driver.findElements(By.tagName("tr"));
+            Timer.waitSeconds(1);
+            for (WebElement trElement : trElements) {
+                if (StringUtils.containsIgnoreCase(trElement.getText(), shopAddress)) {
+                    WebElement submitElement = trElement.findElement(By.tagName("input"));
+                    submitElement.click();
+                    Timer.waitSeconds(1);
 
-                driver.get("https://www.sportmaster.ru/basket/checkout.do");
-                Timer.waitSeconds(1);
+                    driver.get("https://www.sportmaster.ru/basket/checkout.do");
+                    Timer.waitSeconds(1);
 
-                return driver;
+                    return driver;
+                }
             }
+        } catch (Exception e){
+            driver.quit();
+            return null;
         }
+
         driver.quit();
         return null;
     }
@@ -205,6 +209,7 @@ public class OrderServiceImpl implements OrderService {
         Timer.waitSeconds(1);
 
         if (driver.getCurrentUrl().contains("www.sportmaster.ru/product")) {
+//            ((HtmlUnitDriver)driver).setJavascriptEnabled(true);
             driver.get(driver.getCurrentUrl());
             Timer.waitSeconds(1);
 

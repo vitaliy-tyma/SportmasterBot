@@ -104,11 +104,27 @@
         </dependency>
 
         <!-- SELENIUM WEB DRIVER -->
+        <!--<dependency>-->
+            <!--<groupId>org.seleniumhq.selenium</groupId>-->
+            <!--<artifactId>selenium-htmlunit-driver</artifactId>-->
+            <!--<version>${selenium.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
+            <!--<artifactId>phantomjsdriver</artifactId>-->
+            <!--<version>1.1.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.github.bonigarcia</groupId>-->
+            <!--<artifactId>webdrivermanager</artifactId>-->
+            <!--<version>3.0.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-htmlunit-driver</artifactId>
-            <version>${selenium.version}</version>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.14.0</version>
         </dependency>
+
 
         <!-- SELENIUM -->
         <dependency>
