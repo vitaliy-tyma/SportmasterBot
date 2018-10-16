@@ -9,7 +9,10 @@ public class WebDriverUtil {
 
     public static WebDriver getWebDriver() {
 
-        System.setProperty("webdriver.chrome.driver", "D:\\selenium\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "resources\\chromedriver.exe");
+
+        String mainDir = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", mainDir + "\\src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
