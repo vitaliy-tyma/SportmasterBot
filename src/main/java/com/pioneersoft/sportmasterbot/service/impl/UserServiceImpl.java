@@ -1,7 +1,5 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
 import com.pioneersoft.sportmasterbot.model.User;
 import com.pioneersoft.sportmasterbot.service.UserService;
 import com.pioneersoft.sportmasterbot.util.Timer;
@@ -13,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
     public Connection.Response tryToLogin(String login, String pass) {
 
@@ -48,28 +49,20 @@ public class UserServiceImpl implements UserService {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe(e.getMessage());
         }
         return null;
     }
 
     @Override
-    public User getUserInfo(Document userResponse) {
+    public User getUserInfo(String jsonContent) {
 
         User user = null;
-        if (userResponse != null) {
-            String jsonInHtml = userResponse.getElementsByTag("sm-delivery-page").first().attr("params");
-            jsonInHtml = StringUtils.substringBetween(jsonInHtml, "json:", "orderEditingSession:");
-            jsonInHtml = StringUtils.substringBeforeLast(jsonInHtml, ",");
-
-            DocumentContext context = JsonPath.parse(jsonInHtml);
+        if (jsonContent != null && StringUtils.startsWith(jsonContent, "{")) {
             user = new User();
-            user.setEmail(context.read("$.contacts.email", String.class));
-            user.setName(context.read("$.contacts.name", String.class));
-            user.setPhone(context.read("$.contacts.phone", String.class));
-
-            user.setUserWebId(StringUtils.substringBetween(userResponse.toString(), "ko.observable('", ";)"));
-
+            user.setEmail(StringUtils.substringBetween(jsonContent, "\",\"email\":\"", "\",\"confirmedPhones\""));
+            user.setName(StringUtils.substringBetween(jsonContent, "\"contacts\":{\"name\":\"", "\",\"phone\":\""));
+            user.setPhone(StringUtils.substringBetween(jsonContent, "\",\"phone\":\"", "\",\"email\":\""));
         }
 
         return user;

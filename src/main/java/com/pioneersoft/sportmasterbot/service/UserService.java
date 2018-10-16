@@ -8,7 +8,7 @@ public interface UserService {
 
     Connection.Response tryToLogin(String login, String pass);
 
-    User getUserInfo(Document userResponse);
+    User getUserInfo(String jsonContent);
 
 
 }

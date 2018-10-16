@@ -2,7 +2,6 @@ package com.pioneersoft.sportmasterbot.service.impl;
 
 import com.pioneersoft.sportmasterbot.model.Item;
 import com.pioneersoft.sportmasterbot.service.ItemService;
-import com.pioneersoft.sportmasterbot.util.LogManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,9 +9,12 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+
+	private static Logger logger = Logger.getLogger(ItemServiceImpl.class.getName());
 
 	public Item findItemByItemId(String itemId) {
 
@@ -37,7 +39,7 @@ public class ItemServiceImpl implements ItemService {
 				item.setPrice(extractPrice(document));
 			}
 		} catch (IOException e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 
 		return item;
@@ -54,7 +56,7 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return productId;
 	}
@@ -66,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
 				return Integer.parseInt(element.text().replaceAll("\\D", ""));
 			}
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return null;
 	}
@@ -78,7 +80,7 @@ public class ItemServiceImpl implements ItemService {
 				return Integer.parseInt(element.text().replaceAll("\\D", ""));
 			}
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return null;
 	}
@@ -94,7 +96,7 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return size;
 	}
@@ -113,7 +115,7 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return color;
 	}
@@ -123,7 +125,7 @@ public class ItemServiceImpl implements ItemService {
 		try {
 			name = document.getElementsByAttributeValue("data-selenium", "product_name").first().text();
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return name;
 	}
@@ -139,7 +141,7 @@ public class ItemServiceImpl implements ItemService {
 			}
 
 		} catch (Exception e) {
-			LogManager.writeLogText(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 		return brand;
 	}

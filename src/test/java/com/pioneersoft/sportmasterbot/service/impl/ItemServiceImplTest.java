@@ -1,12 +1,14 @@
 package com.pioneersoft.sportmasterbot.service.impl;
 
 import com.pioneersoft.sportmasterbot.model.Item;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class ItemServiceImplTest {
 
+    @Ignore
     @Test
     public void findItemByItemId() {
         ItemServiceImpl itemsService = new ItemServiceImpl();

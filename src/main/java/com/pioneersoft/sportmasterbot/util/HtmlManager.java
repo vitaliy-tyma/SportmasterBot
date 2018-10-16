@@ -2,43 +2,16 @@ package com.pioneersoft.sportmasterbot.util;
 
 import com.pioneersoft.sportmasterbot.model.Order;
 import com.pioneersoft.sportmasterbot.model.Shop;
+import com.pioneersoft.sportmasterbot.util.html.HtmlTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class HtmlManager {
 
-    private static final String MAIN_DIR = System.getProperty("user.dir");
-
-    private static final String SEP = System.getProperty("file.separator");
-
-
-    private static final String FILE_PATH =
-            MAIN_DIR +
-                    SEP +
-                    "frontend" +
-                    SEP +
-                    "html" +
-                    SEP;
-
-    public String readFromFile(String fileName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try
-                (FileReader reader = new FileReader(FILE_PATH + fileName);
-                 BufferedReader bufReader = new BufferedReader(reader)) {
-            String line;
-            while ((line = bufReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (Exception e) {
-            LogManager.writeLogText("Exception in reading " + fileName);
-        }
-
-        return stringBuilder.toString();
-    }
+    private static Logger logger = Logger.getLogger(HtmlManager.class.getName());
 
     public String getUnauthorizedUserHtml() {
         return "                <div>\n" +
@@ -46,7 +19,7 @@ public class HtmlManager {
                 "                        <h3>User was not authorised!</h3>\n" +
                 "                    </div>\n" +
                 "                    <div id=\"order\">\n" +
-                "                        <a href=\"/start\" class=\"btn-class\" id=\"order-form\">BACK TO AUTH</a>\n" +
+                "                        <a href=\"/\" class=\"btn-class\" id=\"order-form\">BACK TO AUTH</a>\n" +
                 "                    </div>\n" +
                 "                </div>";
     }
@@ -106,7 +79,7 @@ public class HtmlManager {
     }
 
     public String getItemSelectionPage(String itemBox, String userBox, String rows) {
-        String html = readFromFile("shop-selection.html");
+        String html = HtmlTemplate.SHOP_SELECTION;
 
         String[] parts = html.split("!!!separator");
 
@@ -121,14 +94,14 @@ public class HtmlManager {
         return sb.toString();
     }
 
-    public String getOrderPage(Order order) {
-        String html = readFromFile("order-info.html");
+    public String getOrderPage(Order order, String login, String pass) {
+        String html = HtmlTemplate.ORDER_INFO;
         String[] parts = html.split("!!!Separator");
 
-        return parts[0] + getOrderBox(order) + parts[1];
+        return parts[0] + getOrderBox(order, login, pass) + parts[1];
     }
 
-    private String getOrderBox(Order order) {
+    private String getOrderBox(Order order, String login, String pass) {
 
         if (order != null){
             return "<div id=\"order-info\">" +
@@ -136,7 +109,7 @@ public class HtmlManager {
                     "                    <br><br>" +
                     "                    Item name: " + order.getItem().getItemName() +
                     "                    <br><br>" +
-                    "                    Item price: " + order.getItem().getPrice() +
+                    "                    Item price: " + order.getItem().getPrice() + " RUB" +
                     "                    <br><br>" +
                     "                    User: " + order.getUser().getName() +
                     "                    <br><br>" +
@@ -154,19 +127,22 @@ public class HtmlManager {
                     "                    <div id=\"order\">" +
                     "                        <div id=\"order-form\">" +
                     "                            <div class=\"botton-left\">" +
-                    "                                <a href=\"/start\" id=\"link-to-start\">BACK TO AUTH</a>\n" +
+                    "                        <div id=\"form\">\n" +
+                    "                            <form action=\"/check/user\" method=\"post\">\n" +
+                    "                                <div class=\"input-name\">\n" +
+                    "                                    <input id=\"input-name\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\">\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div class=\"input-pass\">\n" +
+                    "                                    <input id=\"input-pass\" hidden name=\"password\" value=\""+order.getUser().getLogin()+"\">\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"botton\">\n" +
+                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"NEW ORDER\">\n" +
+                    "                                </div>\n" +
+                    "                            </form>\n" +
+                    "                        </div>\n" +
                     "                            </div>" +
-                    "                        </div>" +
-                    "                    </div>" +
-                    "                    <div id=\"authorisation\">" +
-                    "                        <div id=\"auth-form\">" +
-                    "                            <form action=\"/check/user\" method=\"post\">" +
-                    "                                <div class=\"botton-right\">" +
-                    "                                    <input type=\"text\" hidden name=\"login\" value=\""+order.getUser().getLogin()+"\"/>" +
-                    "                                    <input type=\"text\" hidden name=\"password\" value=\""+order.getUser().getPassword()+"\"/>" +
-                    "                                    <input type=\"submit\" class=\"btn-class\" value=\"BACK TO ORDER\">" +
-                    "                                </div>" +
-                    "                            </form>" +
                     "                        </div>" +
                     "                    </div>" +
                     "                </div>";
@@ -174,7 +150,30 @@ public class HtmlManager {
         return "<div id=\"order-info-check\">" +
                 " Order was not created                   " +
                 "    <br><br><br><br>" +
-                "</div>";
-
+                "</div>"
+                +
+                "                   <div class=\"content\" id=\"main-box\">" +
+                "                    <div id=\"order\">" +
+                "                        <div id=\"order-form\">" +
+                "                            <div class=\"botton-left\">" +
+                "                        <div id=\"form\">\n" +
+                "                            <form action=\"/check/user\" method=\"post\">\n" +
+                "                                <div class=\"input-name\">\n" +
+                "                                    <input id=\"input-name\" hidden name=\"login\" value=\""+login+"\">\n" +
+                "                                </div>\n" +
+                "\n" +
+                "                                <div class=\"input-pass\">\n" +
+                "                                    <input id=\"input-pass\" hidden name=\"password\" value=\""+pass+"\">\n" +
+                "                                </div>\n" +
+                "\n" +
+                "                                <div id=\"botton\">\n" +
+                "                                    <input type=\"submit\" class=\"btn-class\" value=\"NEW ORDER\">\n" +
+                "                                </div>\n" +
+                "                            </form>\n" +
+                "                        </div>\n" +
+                "                            </div>" +
+                "                        </div>" +
+                "                    </div>" +
+                "                </div>";
     }
 }

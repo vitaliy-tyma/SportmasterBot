@@ -4,18 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pioneersoft.sportmasterbot</groupId>
-    <artifactId>com.pioneersoft</artifactId>
-    <packaging>war</packaging>
-    <name>sportmaster-bot</name>
+    <groupId>com.pioneersoft</groupId>
+    <artifactId>sportmaster-bot</artifactId>
     <version>1.0.0</version>
+    <!--<packaging>war</packaging>-->
 
+    <name>sportmaster-bot</name>
 
     <properties>
         <start-class>
             com.pioneersoft.sportmasterbot.ApplicationRunner
         </start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+
+        <start-class>com.pioneersoft.sportmasterbot.ApplicationRunner</start-class>
         <junit.version>4.12</junit.version>
         <lombok.version>1.16.20</lombok.version>
         <jackson.version>2.9.4</jackson.version>
@@ -24,6 +30,7 @@
         <jsoup.version>1.11.2</jsoup.version>
         <jayway.version>2.4.0</jayway.version>
         <string-utils.version>3.7</string-utils.version>
+        <selenium.version>2.52.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -69,13 +76,7 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <!-- SPRING-CONTEXT -->
+       <!-- SPRING-CONTEXT -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -112,6 +113,42 @@
             <version>${jsoup.version}</version>
         </dependency>
 
+        <!-- SELENIUM WEB DRIVER -->
+        <!--<dependency>-->
+            <!--<groupId>org.seleniumhq.selenium</groupId>-->
+            <!--<artifactId>selenium-htmlunit-driver</artifactId>-->
+            <!--<version>${selenium.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
+            <!--<artifactId>phantomjsdriver</artifactId>-->
+            <!--<version>1.1.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.github.bonigarcia</groupId>-->
+            <!--<artifactId>webdrivermanager</artifactId>-->
+            <!--<version>3.0.0</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+
+
+        <!-- SELENIUM -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+
         <!-- JAYWAY -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -134,23 +171,22 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>${spring-boot.version}</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
     </dependencies>
 
     <build>
+
+        <finalName>api</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <!-- this is relative to the pom.xml directory -->
-                            <directory>frontend</directory>
-                            <directory>log</directory>
-                        </resource>
-                    </webResources>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
