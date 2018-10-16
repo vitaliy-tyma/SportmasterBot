@@ -286,13 +286,13 @@ public class HtmlTemplate {
             "                            <form action=\"/check/user\" method=\"post\">\n" +
             "                                <div class=\"input-name\">\n" +
             "                                    <label for=\"input-name\" id=\"label-name\">Name:</label>\n" +
-            "                                    <input id=\"input-name\" size=\"24\" type=\"text\" name=\"login\" required\n" +
+            "                                    <input id=\"input-name\" size=\"26\" type=\"text\" name=\"login\" required\n" +
             "                                           placeholder=\"Input login\">\n" +
             "                                </div>\n" +
             "\n" +
             "                                <div class=\"input-pass\">\n" +
             "                                    <label for=\"input-pass\" id=\"label-pass\">Password:</label>\n" +
-            "                                    <input id=\"input-pass\" size=\"24\" type=\"password\" name=\"password\" required\n" +
+            "                                    <input id=\"input-pass\" size=\"26\" type=\"password\" name=\"password\" required\n" +
             "                                           placeholder=\"Input password\">\n" +
             "                                </div>\n" +
             "\n" +
