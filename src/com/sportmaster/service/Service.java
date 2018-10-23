@@ -31,13 +31,12 @@ public class Service {
 		return driver;
 	}
 
+	////////////////////////////////////////////////////////////////////////
 	public static WebDriver login(WebDriver driver, String url, Account account) {
-
-		url = "https://www.sportmaster.ru/user/session/login.do";
 		driver.get(url);
 		Timer.delay(1);
 
-		/*
+		/* TO BE DELETED!!!!!!!!!!!!
 		 * boolean signed_in =
 		 * driver.getPageSource().contains("user/session/logout.do"); if (signed_in) {
 		 * logger.log(Level.SEVERE,
@@ -75,29 +74,70 @@ public class Service {
 
 			WebElement input_submit_element = driver.findElement(By.id("submitButton"));
 			input_submit_element.submit();
-			logger.log(Level.INFO, "submit button has been pressed.");
+			
+			logger.log(Level.INFO, "Submit button has been pressed.");
 
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "No Element - " + e.getMessage());
-		}
-		return driver;
-	}
-
-	public static WebDriver itemSearch(WebDriver driver, String good_id) {
-		try {
 			String currentUrl = driver.getCurrentUrl();
 			driver.get(currentUrl);
+			Timer.delay(3);
+			
+			/* Check if proper user has been found.*/
+			WebElement user_name_element = driver.findElement(By.className("headerBar__username"));
+			if (!user_name_element.getText().equals(account.getUser_name())) {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, 
+					"**********No Element has been found while login procedure.");
+		}
+		
+		Timer.delay(6);
+		return driver;
+	}
+	
+	////////////////////////////////////////////////////////////////////////
+	public static WebDriver itemSearch(WebDriver driver, String good_id) {
+		try {
 
-			WebElement input_search_element = driver.findElement(By.className("smSearch__text"));
+			/* Need to wait enough time.*/
+			Timer.delay(6);
+			WebElement input_search_element = 
+					driver.findElement(By.className("smSearch__text"));
 			input_search_element.clear();
 			input_search_element.sendKeys(good_id);
 
-			WebElement input_search_submit_element = driver.findElement(By.cssSelector("input.smSearch__submit"));
+			WebElement input_search_submit_element = 
+					driver.findElement(By.cssSelector("input.smSearch__submit"));
 			input_search_submit_element.click();
 			
+			logger.log(Level.INFO, "Search of " + good_id + " item was submitted.");
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "No Element - " + e.getMessage());
+			logger.log(Level.SEVERE, 
+					"**********No Element has been found while item search procedure.");
 		}
+		Timer.delay(3);
+		return driver;
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	public static WebDriver itemUrlExtractAndOpen(WebDriver driver) {
+		try {
+			// String currentUrl = driver.getCurrentUrl();
+			// driver.get(currentUrl);
+
+			WebElement item_url_element = driver.findElement(By.className("sm-category__item"));
+			WebElement item_url_element1 = item_url_element.findElement(By.tagName("a"));
+			String item_url = item_url_element1.getAttribute("href");
+
+			logger.log(Level.INFO, "item_url = " + item_url);
+			driver.get(item_url);
+			
+			logger.log(Level.INFO, "Item was opened.");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "**********No Element has been found while item url extraction procedure.");
+		}
+		Timer.delay(3);
 		return driver;
 	}
 
