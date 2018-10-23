@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.sportmaster.model.Account;
+import com.sportmaster.model.Good;
 import com.sportmaster.service.Service;
 import com.sportmaster.service.chromeDriver;
 import com.sportmaster.util.Timer;
@@ -15,7 +16,7 @@ public class AppRunner {
 	private static String login = "1955aa@inbox.ru";
 	private static String password = "123qwe";
 	private static String userName = "Andrey";
-	private static String goodID = "10295934";
+	private static String goodID = "01371300S";
 	private static String shopID = "????????";
 	
 	public static void main(String[] args) {
@@ -35,7 +36,8 @@ public class AppRunner {
 			
 			driver = Service.itemUrlExtractAndOpen(driver);
 	
-			
+			Good good = new Good();
+			driver = Service.setGood(driver, good);
 			
 			driver.close();
 		} catch (Exception e) {

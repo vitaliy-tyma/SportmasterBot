@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.sportmaster.model.Account;
+import com.sportmaster.model.Good;
 import com.sportmaster.util.Timer;
 
 public class Service {
@@ -34,6 +35,8 @@ public class Service {
 			
 			logger.log(Level.INFO, "Submit button has been pressed.");
 
+			//logger.log(Level.INFO, "input_name_element = " + input_name_element.getAttribute("innerHTML"));
+			
 			String currentUrl = driver.getCurrentUrl();
 			driver.get(currentUrl);
 			Timer.delay(3);
@@ -100,4 +103,25 @@ public class Service {
 		return driver;
 	}
 
+	////////////////////////////////////////////////////////////////////////
+	public static WebDriver setGood(WebDriver driver, Good good) {
+		try {
+
+			WebElement item_name_element = 
+					driver.findElement(By.className("sm-goods_main_details"));
+			WebElement item_name_element1 = 
+					item_name_element.findElement(By.tagName("itemprop"));
+			String goodName = item_name_element1.getText();
+			
+			//itemprop="name"
+			//data-selenium="product_name"
+			
+			logger.log(Level.INFO, "Good (POJO) has been set. Name = " + goodName);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "**********No Element has been found "
+					+ "while good setting procedure.");
+		}
+		Timer.delay(3);
+		return driver;
+	}
 }
