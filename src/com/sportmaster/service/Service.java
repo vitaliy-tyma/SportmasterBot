@@ -109,6 +109,8 @@ public class Service {
 
 			WebElement item_name_element = 
 					driver.findElement(By.className("sm-goods_main_details"));
+
+			//STOP HERE
 			WebElement item_name_element1 = 
 					item_name_element.findElement(By.tagName("itemprop"));
 			String goodName = item_name_element1.getText();
