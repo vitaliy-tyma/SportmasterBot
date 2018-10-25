@@ -1,5 +1,6 @@
 package com.sportmaster.service;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openqa.selenium.By;
@@ -8,7 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.sportmaster.model.Account;
 import com.sportmaster.model.Good;
+import com.sportmaster.model.Shop;
 import com.sportmaster.util.Timer;
+import com.sportmaster.service.NoShopsWithGoodException;
 
 public class Service {
 	/*
@@ -174,9 +177,9 @@ public class Service {
 			logger.log(Level.INFO, "Go to basket has been pressed.");
 			driver.get(itemUrl);
 			
-			
+			//
 			//WHAT TO DO NEXT??????
-			
+			//
 			
 			
 		} catch (NoSuchElementException e) {
@@ -184,6 +187,85 @@ public class Service {
 		}
 		Timer.delay(3);
 		return driver;
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	//GET FIRST SHOP WHERE GOOD IS PRESENT
+	public static Shop clarifyGoodPresence(WebDriver driver, Good good) throws NoShopsWithGoodException{
+		Shop shopFirst = new Shop();
+		try {
+
+			//class="sm-goods_tabs_block"
+			//li data-selenium="product_tab"
+			WebElement itemClarifyElement = driver.findElement(By.className("sm-goods_tabs_block"));
+			List <WebElement> itemClarifyList = itemClarifyElement.findElements(By.cssSelector("li[data-selenium='product_tab'"));
+			
+			for (WebElement element : itemClarifyList) {
+				if (element.getAttribute("data-bind").contains("availability")) {
+					element.click();
+					logger.log(Level.INFO, "Check availability Button has been pressed.");
+					break;
+					}
+			}
+
+
+			
+			//class="sm-goods_tabs_presence-availability clearfix"
+			//value="available"
+			WebElement itemTabsPesence = driver.findElement(By.className("sm-goods_tabs_presence-availability"));
+			List <WebElement> itemTabsList = itemTabsPesence.findElements(By.cssSelector("input"));
+			
+			for (WebElement element : itemTabsList ) {
+				if (element.getAttribute("value").contains("available")) {
+					element.click();
+					logger.log(Level.INFO, "Available radio Button has been pressed.");
+					break;
+					}
+			}
+			
+			
+			
+			
+			
+			//table
+			//class="ccrests__table"
+			WebElement itemTableElement = driver.findElement(By.className("ccrests__table"));
+			List <WebElement> itemTableRowsList = itemTableElement.findElements(By.cssSelector("tr"));
+			//
+			//Check if list is not empty - otherwise fail with the shop!!!!
+			if (itemTableRowsList.size() == 0) {
+				throw new NoShopsWithGoodException();
+			}
+			
+			
+			for (WebElement element : itemTableRowsList ) {
+				//class="ccrests__table__column-address"
+				//a
+				//class="ccrests__store-address"
+				
+				
+				//class="ccrests__table__column-metro ccrests__store-metro"
+				//span
+				/*WebElement shopAddressElement = element.findElement(By.className("ccrests__store-address"));
+				WebElement shopMetroElement = element.findElement(By.className("ccrests__table__column-metro"));
+				
+				shopFirst.setShopAddress(shopAddressElement.getText());
+				shopFirst.setShopMetro(shopMetroElement.getText());
+				shopFirst.setShopID("&&&&&ID");
+				*/
+				logger.log(Level.INFO, "----------------Shop First has been created.");
+			}
+			
+			
+			
+			
+			
+		} catch (NoSuchElementException e) {
+			logger.log(Level.SEVERE, "**********No Shop has been found while buying procedure.");
+		}
+		Timer.delay(3);
+		return shopFirst;
 	}
 	
 

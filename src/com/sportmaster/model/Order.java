@@ -6,7 +6,7 @@ public class Order {
 	private String orderID;
 	private String shopID;
 	private String user;
-	
+
 	public Order(String goodID, Good good, String orderID, String shopID, String user) {
 		super();
 		this.goodID = goodID;
@@ -17,12 +17,18 @@ public class Order {
 	}
 
 	public Order() {
+		super();
+		this.goodID = "";
+		this.good = null;//How to initialize?
+		this.orderID = "";
+		this.shopID = "";
+		this.user = "";
 	}
 
 	@Override
 	public String toString() {
-		return "Order [goodID=" + goodID + ", good=" + good.toString() + ", orderID=" + orderID + ", shopID=" + shopID + ", user="
-				+ user + "]";
+		return "Order [goodID=" + goodID + ", good=" + good.toString() + ", orderID=" + orderID + ", shopID=" + shopID
+				+ ", user=" + user + "]";
 	}
 
 	public String getGoodID() {
@@ -64,6 +70,5 @@ public class Order {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	
-	
+
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import com.sportmaster.model.Account;
 import com.sportmaster.model.Good;
 import com.sportmaster.model.Order;
+import com.sportmaster.model.Shop;
 
 public class Starter {
 	static Logger logger = Logger.getLogger(Starter.class.getName());
@@ -47,7 +48,14 @@ public class Starter {
 		
 		// Choose color?!!!!!!!!!!!!!
 
-		driver = Service.pressBuyButton(driver, goodID, good);
+		
+		//Process with "Presence in shops"
+		Shop shopFirst = Service.clarifyGoodPresence(driver, good);
+				
+		//++++++++++
+		
+		//Temporary disabled.
+		//driver = Service.pressBuyButton(driver, goodID, good);
 		//
 	
 		
@@ -60,7 +68,9 @@ public class Starter {
 		order.setUser(user);
 		
 		
-		
+		//
+		//Question - do we need to Log out user?
+		//
 		driver.close();
 	} catch (Exception e) {
 		logger.log(Level.SEVERE, "**************** WebDriver error: " + e.getMessage());

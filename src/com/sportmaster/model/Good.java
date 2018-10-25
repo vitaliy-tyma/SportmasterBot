@@ -13,6 +13,13 @@ public class Good {
 	
 	public Good() {
 		super();
+		this.goodID = "";
+		this.articleID = "";
+		this.name = "";
+		this.price = "";
+		this.color = "";
+		this.description = "";
+		this.url = "";
 	}
 
 	public Good(String goodID, String articleID, String name,
