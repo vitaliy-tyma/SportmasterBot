@@ -3,13 +3,13 @@ package com.sportmaster.model;
 public class Account {
 	private String login;
 	private String password;
-	private String user_name;
+	private String userName;
 	
-	public Account(String login, String password, String user_name) {
+	public Account(String login, String password, String userName) {
 		super();
 		this.login = login;
 		this.password = password;
-		this.user_name = user_name;
+		this.userName = userName;
 	}
 
 	public String getLogin() {
@@ -28,12 +28,12 @@ public class Account {
 		this.password = password;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	

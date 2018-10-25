@@ -1,43 +1,69 @@
 package com.sportmaster.model;
 
 public class Order {
-	private String good;
-	private String order_id;
-	private String shop_id;
+	private String goodID;
+	private Good good;
+	private String orderID;
+	private String shopID;
 	private String user;
 	
-	
-	public Order(String good, String order_id, String shop_id, String user) {
+	public Order(String goodID, Good good, String orderID, String shopID, String user) {
 		super();
+		this.goodID = goodID;
 		this.good = good;
-		this.order_id = order_id;
-		this.shop_id = shop_id;
+		this.orderID = orderID;
+		this.shopID = shopID;
 		this.user = user;
 	}
-	
-	
-	public String getGood() {
+
+	public Order() {
+	}
+
+	@Override
+	public String toString() {
+		return "Order [goodID=" + goodID + ", good=" + good.toString() + ", orderID=" + orderID + ", shopID=" + shopID + ", user="
+				+ user + "]";
+	}
+
+	public String getGoodID() {
+		return goodID;
+	}
+
+	public void setGoodID(String goodID) {
+		this.goodID = goodID;
+	}
+
+	public Good getGood() {
 		return good;
 	}
-	public void setGood(String good) {
+
+	public void setGood(Good good) {
 		this.good = good;
 	}
-	public String getOrder_id() {
-		return order_id;
+
+	public String getOrderID() {
+		return orderID;
 	}
-	public void setOrder_id(String order_id) {
-		this.order_id = order_id;
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
 	}
-	public String getShop_id() {
-		return shop_id;
+
+	public String getShopID() {
+		return shopID;
 	}
-	public void setShop_id(String shop_id) {
-		this.shop_id = shop_id;
+
+	public void setShopID(String shopID) {
+		this.shopID = shopID;
 	}
+
 	public String getUser() {
 		return user;
 	}
+
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
+	
 }

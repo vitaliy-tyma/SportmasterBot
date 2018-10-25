@@ -28,6 +28,13 @@ public class Good {
 		this.url = url;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Good [goodID=" + goodID + ", articleID=" + articleID + ", name=" + name + ", price=" + price
+				+ ", color=" + color + ", description=" + description + ", url=" + url + "]";
+	}
+
 	public String getGoodID() {
 		return goodID;
 	}
