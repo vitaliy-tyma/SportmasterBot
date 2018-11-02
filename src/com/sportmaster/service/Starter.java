@@ -50,12 +50,12 @@ public class Starter {
 
 		
 		//Process with "Presence in shops"
-		Shop shopFirst = Service.clarifyGoodPresence(driver, good);
+		//Shop shopFirst = Service.clarifyGoodPresence(driver, good);
 				
 		//++++++++++
 		
-		//Temporary disabled.
-		//driver = Service.pressBuyButton(driver, goodID, good);
+		
+		driver = Service.pressBuyButton(driver, goodID, good);
 		//
 	
 		

@@ -22,10 +22,15 @@ public class AppRunner {
 	private static String userName = "Andrey";
 	
 	private static String goodID = "01371300S";//Good with size
-	//private static String goodID = "10295934";//List of goods - few - boundary condition 1
-	//private static String goodID = "01371300S1";//Not found good - boundary condition 2
-	private static String shopID = "????????";
+	private static String shopID = "6221";//"metro":"Строгино","name":"ТЦ на ул. Маршала Катукова
 
+	//private static String goodID = "10295934";//List of goods - few - boundary condition 1
+	
+	//private static String goodID = "01371300S1";//Not found good - boundary condition 2
+
+	
+	//private static String goodID = "UTL0007Y444";//From Alex's choice - to be checked	
+	
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger(AppRunner.class.getName());
 		logger.log(Level.INFO, "********************Start********************");

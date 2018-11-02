@@ -186,6 +186,7 @@ public class Service {
 
 	////////////////////////////////////////////////////////////////////////
 	// GET FIRST SHOP WHERE GOOD IS PRESENT
+	//OUTDATED
 	public static Shop clarifyGoodPresence(WebDriver driver, Good good) throws NoShopsWithGoodException {
 		Shop shopFirst = new Shop();
 		try {
@@ -288,6 +289,8 @@ public class Service {
 	}
 
 	// TO BE DELETED!!!!
+	//GARBAGE
+	///////////////////////////////////////////////////////
 	// logger.log(Level.INFO, "input_name_element = " +
 	// input_name_element.getAttribute("innerHTML"));
 
