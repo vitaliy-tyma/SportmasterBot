@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+    public class OrderServiceImpl implements OrderService {
 
     private static Logger logger = Logger.getLogger(OrderServiceImpl.class.getName());
 
@@ -35,8 +35,17 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ShopService shopService;
 
+
+
+
+
+
+
+
     @Override
     public Order makeOrder(String itemId, String shopId, String login, String password) {
+        //+
+        logger.info("OrderServiceImpl.makeOrder - START (!!!!!!!!!!!!!!!)");
 
         Order order = null;
 
@@ -65,8 +74,15 @@ public class OrderServiceImpl implements OrderService {
         if (driver == null) {
             return order;
         }
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after getShopSelectedDriver");
+
+
 
         driver = getCartSubmitDriver(driver);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after getCartSubmitDriver");
+
 
         User user = getUserFromPage(driver);
 
@@ -78,10 +94,16 @@ public class OrderServiceImpl implements OrderService {
         user.setPassword(password);
 
         driver = getDeliverySubmitDriver(driver);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after getDeliverySubmitDriver");
+
 
         order = new Order();
 
         order.setOrderId(extractOrderId(driver));
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setOrderId");
+
 
         if (StringUtils.isBlank(order.getOrderId())) {
             driver.quit();
@@ -89,34 +111,98 @@ public class OrderServiceImpl implements OrderService {
         }
 
         order.setAddress(shop.getAddress());
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setAddress");
+
+
         order.setMetro(shop.getMetroStation());
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setMetro");
+
 
         Item item = itemService.findItemByItemId(itemId);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after itemService.findItemByItemId");
+
 
         order.setAmount(1);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setAmount");
+
         order.setItem(item);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setItem");
+
         order.setUser(user);
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setUser");
+
         order.setOrderTime(System.currentTimeMillis());
+        //+
+        logger.info("OrderServiceImpl.makeOrder - after setOrderTime");
 
 
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         logger.info("Order " + order.getOrderId() + " was made!");
 
         driver.quit();
+
+        //+
+        logger.info("OrderServiceImpl.makeOrder - return order");
 
         return order;
 
     }
 
+
+
+
+
+
+
+
+
     private String extractOrderId(WebDriver driver) {
+
+        //+
+        logger.info("OrderServiceImpl.extractOrderId - START");
+
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        //CHECK dm-basket-thanks
+        //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         WebElement element = driver.findElement(By.tagName("sm-basket-thanks"));
         String jsonContent = element.getAttribute("params");
 
+
+
+
+
+
+
+
+
+
+
         if (StringUtils.isNotBlank(jsonContent)) {
+            //+
+            logger.info("OrderServiceImpl.extractOrderId - ready to return");
+
             return StringUtils.substringBetween(jsonContent, "number : \"", "\",");
         }
 
         return StringUtils.EMPTY;
     }
+
+
+
+
 
     private WebDriver getDeliverySubmitDriver(WebDriver driver) {
         WebElement submitElement = driver.findElement(By.id("gtm-shipping-continue"));
@@ -130,12 +216,18 @@ public class OrderServiceImpl implements OrderService {
         return driver;
     }
 
+
+
+
     private User getUserFromPage(WebDriver driver) {
         WebElement element = driver.findElement(By.tagName("sm-delivery-page"));
         String jsonContent = element.getAttribute("params");
 
         return userService.getUserInfo(jsonContent);
     }
+
+
+
 
     private WebDriver getCartSubmitDriver(WebDriver driver) {
         WebElement submitElement = driver.findElement(By.id("gtm-cart-continue"));
@@ -149,7 +241,13 @@ public class OrderServiceImpl implements OrderService {
         return driver;
     }
 
+
+
+
+
     private WebDriver getShopSelectedDriver(WebDriver driver, String shopAddress) {
+        //+
+        logger.info("OrderServiceImpl.getShopSelectedDriver - START");
 
         try {
             WebElement selectBtnElement = driver.findElement(By.id("gtm-cart-store-select"));
@@ -163,18 +261,32 @@ public class OrderServiceImpl implements OrderService {
             List<WebElement> trElements = driver.findElements(By.tagName("tr"));
             Timer.waitSeconds(1);
             for (WebElement trElement : trElements) {
+
+                //+
+                logger.info("OrderServiceImpl.getShopSelectedDriver - find our SHOP and click INPUT ELEMENT = " + trElement.getText());
+
                 if (StringUtils.containsIgnoreCase(trElement.getText(), shopAddress)) {
+                    ////////////////////////////////////////////////////
+                    //WHY IS IT NOT FIND?
+                    ////////////////////////////////////////////////////
                     WebElement submitElement = trElement.findElement(By.tagName("input"));
                     submitElement.click();
                     Timer.waitSeconds(1);
 
                     driver.get("https://www.sportmaster.ru/basket/checkout.do");
-                    Timer.waitSeconds(1);
+                    Timer.waitSeconds(1+4);
+
+                    //+
+                    logger.info("OrderServiceImpl.getShopSelectedDriver - ready to return driver");
 
                     return driver;
                 }
             }
         } catch (Exception e){
+
+            //+
+            logger.info("OrderServiceImpl.getShopSelectedDriver - exception has been raised!!!!!!");
+
             driver.quit();
             return null;
         }
@@ -183,7 +295,13 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+
+
+
+
     private WebDriver getAddToCartDriver(WebDriver driver) {
+        //+
+        logger.info("OrderServiceImpl.getAddToCartDriver - START");
 
         List<WebElement> aElements = driver.findElements(By.tagName("a"));
         Timer.waitSeconds(1);
@@ -195,6 +313,9 @@ public class OrderServiceImpl implements OrderService {
                 driver.get("https://www.sportmaster.ru/basket/checkout.do");
                 Timer.waitSeconds(1);
 
+                //+
+                logger.info("OrderServiceImpl.getAddToCartDriver - ready to return");
+
                 return driver;
             }
         }
@@ -202,11 +323,15 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+
+
+
+
     private WebDriver getProductDriver(WebDriver driver, String itemId) {
 
         driver.get("https://www.sportmaster.ru/catalog/product/search.do?text=" + itemId);
-
-        Timer.waitSeconds(1);
+        //+5
+        Timer.waitSeconds(5);
 
         if (driver.getCurrentUrl().contains("www.sportmaster.ru/product")) {
 //            ((HtmlUnitDriver)driver).setJavascriptEnabled(true);
@@ -219,6 +344,9 @@ public class OrderServiceImpl implements OrderService {
         driver.quit();
         return null;
     }
+
+
+
 
     private WebDriver getAuthorizedDriver(String login, String password) {
 

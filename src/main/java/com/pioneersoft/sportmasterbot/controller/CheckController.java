@@ -43,6 +43,8 @@ public class CheckController {
         String tableRows = "";
 
         String html = htmlManager.getItemSelectionPage(itemBox, userBox, tableRows);
+        //+
+        logger.info("checkUserAsRegistered - above return statement = new ResponseEntity");
         return new ResponseEntity<String>(html, HttpStatus.OK);
     }
 
@@ -54,9 +56,12 @@ public class CheckController {
         String itemBox = "";
         if (item != null) {
             itemBox = htmlManager.getItemCheckBox(item.getItemId(), login, password);
+            //+
+            logger.info("findItem - (item != null) = itemBox = htmlManager.getItemCheckBox (item.getItemId(), login, password)");
         } else {
             itemBox = htmlManager.getItemCheckBox(" ", login, password);
-
+            //+
+            logger.info("findItem - (item = null) = itemBox = htmlManager.getItemCheckBox \" \" ");
         }
 
         String userBox = "";
@@ -69,6 +74,8 @@ public class CheckController {
 
 
        String html = htmlManager.getItemSelectionPage(itemBox, userBox, tableRows);
+       //+
+       logger.info("findItem - above return statement = new ResponseEntity");
        return new ResponseEntity<>(html, HttpStatus.OK);
     }
 }

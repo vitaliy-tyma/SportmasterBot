@@ -45,6 +45,10 @@ public class ItemServiceImpl implements ItemService {
 		return item;
 	}
 
+
+
+
+
 	private String extractProductId(Document document) {
 		String productId = "";
 
@@ -61,6 +65,9 @@ public class ItemServiceImpl implements ItemService {
 		return productId;
 	}
 
+
+
+
 	private Integer extractPrice(Document document) {
 		try {
 			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_actual-price").first();
@@ -73,6 +80,9 @@ public class ItemServiceImpl implements ItemService {
 		return null;
 	}
 
+
+
+
 	private Integer extractInitPrice(Document document) {
 		try {
 			Element element = document.getElementsByAttributeValueContaining("class", "sm-goods_main_details_prices_old-price").first();
@@ -84,6 +94,9 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return null;
 	}
+
+
+
 
 	private String extractSize(Document document, String itemId) {
 		String size = "";
@@ -100,6 +113,9 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return size;
 	}
+
+
+
 
 	private String extractColor(Document document) {
 		String color = "";
@@ -120,6 +136,9 @@ public class ItemServiceImpl implements ItemService {
 		return color;
 	}
 
+
+
+
 	private String extractName(Document document) {
 		String name = "";
 		try {
@@ -129,6 +148,9 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return name;
 	}
+
+
+
 
 	private String extractBrand(Document document) {
 

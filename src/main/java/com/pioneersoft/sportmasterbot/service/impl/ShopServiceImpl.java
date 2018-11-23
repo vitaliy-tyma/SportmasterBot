@@ -20,6 +20,10 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Map<String, Shop> getAllShops() {
+
+        //+
+        logger.info("ShopServiceImpl.getAllShops - START");
+
         Map<String, Shop> allShops = new HashMap<>();
 
         try {
@@ -46,12 +50,25 @@ public class ShopServiceImpl implements ShopService {
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
+        //+
+        logger.info("ShopServiceImpl.getAllShops - return allShops");
+
         return allShops;
     }
+
+
+
+
+
+
+
 
     @Override
     @SuppressWarnings( "unchecked" )
     public Map<String, Shop> filterShopsByAvailableItem(Map<String, Shop> allShops, String itemId) {
+        //+
+        logger.info("ShopServiceImpl.filterShopsByAvailableItem - START");
+
         Map<String, Shop> filteredShops = new HashMap<>();
 
         if ( allShops.isEmpty()){
@@ -69,8 +86,24 @@ public class ShopServiceImpl implements ShopService {
 
                     if (filter.containsKey("stockQuantity")){
                         Map<String, Object> stockQuantity = (Map<String, Object>)filter.get("stockQuantity");
-                        if (stockQuantity.containsKey("inStoreIndicator") && !(String.valueOf(stockQuantity.get("inStoreIndicator")).equalsIgnoreCase("NONE"))){
-                            filteredShops.put(String.valueOf(filter.get("storeId")), allShops.get(String.valueOf(filter.get("storeId"))));
+
+                        //+
+                        logger.info("ShopServiceImpl.filterShopsByAvailableItem - check shop");
+
+
+
+                        if (stockQuantity.containsKey("inStoreIndicator") &&
+                                !(String.valueOf(stockQuantity.get("inStoreIndicator")).
+                                        equalsIgnoreCase("NONE"))){
+
+
+
+                            filteredShops.put(
+                                    String.valueOf(filter.get("storeId")),
+                                    allShops.get(String.valueOf(filter.get("storeId"))));
+
+
+
                         }
                     }
                 }
@@ -78,6 +111,9 @@ public class ShopServiceImpl implements ShopService {
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
+
+        //+
+        logger.info("ShopServiceImpl.filterShopsByAvailableItem - before return");
         return filteredShops;
     }
 }

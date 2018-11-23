@@ -20,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     public Connection.Response tryToLogin(String login, String pass) {
 
+        //+
+        logger.info("UserServiceImpl.tryToLogin - START");
+
         Connection.Response initResponse = Jsoup.connect("https://www.sportmaster.ru/user/session/login.do").response();
 
         Map<String, String> cookies = initResponse.cookies();
@@ -42,15 +45,23 @@ public class UserServiceImpl implements UserService {
         connection.data("option", "email");
 
         try {
+            //+
+            logger.info("UserServiceImpl.tryToLogin - in TRY CLAUSE - responce");
+
             Connection.Response response = connection.ignoreContentType(true).method(Connection.Method.POST).execute();
             Map<String, String> userCookies = response.cookies();
             if (!userCookies.isEmpty() && userCookies.keySet().contains("userId")) {
+                //+
+                logger.info("UserServiceImpl.tryToLogin - RETURN SUCCESSFULLY");
+
                 return response;
             }
 
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
+        //+
+        logger.info("UserServiceImpl.tryToLogin - RETURN NULL");
         return null;
     }
 

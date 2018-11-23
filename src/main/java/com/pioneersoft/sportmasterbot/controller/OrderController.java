@@ -31,7 +31,12 @@ public class OrderController {
             (@RequestParam String itemId, @RequestParam String shopId, @RequestParam String login,@RequestParam String password) {
         logger.info("Request to UserController method POST. Try to order item " + itemId + " in shop " + shopId + " for account " + login);
 
+        //+THE ORDER MAKING PROCEDURE
+        logger.info("OrderController.makeOrder("+itemId+", "+shopId+", "+login+", "+password+")");
         Order order = orderService.makeOrder(itemId, shopId, login, password);
+        //+
+        logger.info("OrderController.makeOrder - after orderService.makeOrder...");
+
 
         String html = htmlManager.getOrderPage(order, login, password);
 
