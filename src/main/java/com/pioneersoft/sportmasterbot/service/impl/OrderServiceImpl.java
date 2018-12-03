@@ -185,6 +185,8 @@ public class OrderServiceImpl implements OrderService {
 
     private WebDriver getAddToCartDriver(WebDriver driver) {
 
+        //HEADLESS
+        /*
         List<WebElement> aElements = driver.findElements(By.tagName("a"));
         Timer.waitSeconds(1);
         for (WebElement aElement : aElements) {
@@ -200,6 +202,29 @@ public class OrderServiceImpl implements OrderService {
         }
         driver.quit();
         return null;
+        */
+
+        //NEW METHOD
+        try {
+            WebElement itemBuyElement = driver.findElement(By.className("sm-goods_main_details_buttons"));
+
+            WebElement itemBuy = itemBuyElement.findElement(By.className("sm-goods_main_details_buy-straight"));
+
+            itemBuy.click();
+            logger.info("Buy Button has been pressed.");
+            Timer.waitSeconds(5);
+
+            driver.get("https://www.sportmaster.ru/basket/checkout.do");
+            Timer.waitSeconds(5);
+
+
+            return driver;
+        }
+        catch (Exception e) {
+            driver.quit();
+            return null;
+        }
+
     }
 
     private WebDriver getProductDriver(WebDriver driver, String itemId) {

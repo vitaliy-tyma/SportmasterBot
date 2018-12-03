@@ -59,6 +59,9 @@ public class ShopServiceImpl implements ShopService {
         }
 
         try {
+            //HEADLESS
+            Boolean unavailableStore;
+
             String url = "https://www.sportmaster.ru/rest/v1/sku/" + itemId + "/store/region/stock/core?_=" + System.currentTimeMillis();
             String content = Jsoup.connect(url).ignoreContentType(true).execute().body();
             if (content != null && (content.startsWith("{") || content.startsWith("[{")) ) {
@@ -67,10 +70,39 @@ public class ShopServiceImpl implements ShopService {
 
                 for (Map<String, Object> filter : filters) {
 
+
+                    //HEADLESS
+                    unavailableStore = Boolean.FALSE;
+
                     if (filter.containsKey("stockQuantity")){
                         Map<String, Object> stockQuantity = (Map<String, Object>)filter.get("stockQuantity");
-                        if (stockQuantity.containsKey("inStoreIndicator") && !(String.valueOf(stockQuantity.get("inStoreIndicator")).equalsIgnoreCase("NONE"))){
+
+                        //HEADLESS
+                        if (filter.containsKey("prepayPickup")) {
+                            Map<String, Object> prepayPickup = (Map<String, Object>) filter.get("prepayPickup");
+                            if (prepayPickup.containsKey("unavailableReason") &&
+                                    (String.valueOf(prepayPickup.get("unavailableReason")).
+                                            equalsIgnoreCase("UNSUPPORTED_STORE"))) {
+                                unavailableStore = Boolean.TRUE;
+                            }
+                        }
+
+                        //HEADLESS
+                        if (filter.containsKey("offline")) {
+                            Map<String, Object> offline = (Map<String, Object>) filter.get("offline");
+                            if (offline.containsKey("unavailableReason") &&
+                                    (String.valueOf(offline.get("unavailableReason")).
+                                            equalsIgnoreCase("UNSUPPORTED_STORE"))){
+                                unavailableStore = Boolean.TRUE;
+                            }
+                        }
+
+
+                        //if (stockQuantity.containsKey("inStoreIndicator") && !(String.valueOf(stockQuantity.get("inStoreIndicator")).equalsIgnoreCase("NONE"))){
+                        //HEADLESS
+                        if (stockQuantity.containsKey("inStoreIndicator") && !(String.valueOf(stockQuantity.get("inStoreIndicator")).equalsIgnoreCase("NONE")) && !unavailableStore){
                             filteredShops.put(String.valueOf(filter.get("storeId")), allShops.get(String.valueOf(filter.get("storeId"))));
+
                         }
                     }
                 }
